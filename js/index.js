@@ -319,7 +319,7 @@ var mapOptions = {
     strokeActive: 3
   },
   mapMarkerInZoom = {
-    normal: 2,
+    normal: 1,
     active: 4,
     strokeNormal: 1,
     strokeActive: 2.5
