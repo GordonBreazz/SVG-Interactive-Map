@@ -1,41 +1,3 @@
-$("path").hover(
-  function (e) {
-    $("path").css("fill", "#fff")
-    $(".indicator").html("")
-    var id = $(this).attr("id").toUpperCase()
-
-    if ($(this).attr("name")) {
-      var name = $(this).attr("name")
-      $("<div>" + name + "</div>").appendTo(".indicator")
-    }
-
-    //   if($(this).attr('flag')) {
-    //     var flag = "http://sandbox.alexti-dev.ru/mapping/" + $(this).attr('flag') ;
-    //     $(' <img class="flag" src="" alt="">').appendTo('.indicator');
-    //     $('.indicator').find('img').attr('src',flag )
-    //    // $('<img src='+ flag+ ' >').appendTo('.indicator');
-    //  }
-
-    $(".change").remove()
-
-    var script = document.createElement("script")
-    // script.classList.add('change');
-    //script.src = 'http://api.geonames.org/countryInfoJSON?country='+info[id]+'&username=pixeltest&style=full&callback=update';
-    document.body.appendChild(script)
-
-    $(this).css("fill", "#f6e72d")
-    $("path").not(this).css("fill", "rgba(0,0,0,0.5)")
-    $(".indicator")
-      .css({ top: e.pageY, left: e.pageX + 30 })
-      .show()
-  },
-  function () {
-    $(".indicator").html("")
-    $(".indicator").hide()
-    $("path").css("fill", "rgba(0,0,0,0.2)")
-  }
-)
-
 var idAarr = [
   "RU-MOW",
   "RU-SPE",
@@ -212,65 +174,6 @@ var idAarr2 = new Array(
   ["RU-TUL", "Тульская область", "tulskaya_flag.png"]
 )
 
-$("path").each(function () {
-  var regId = $(this).attr("id")
-  var flag = ""
-  var name = ""
-  for (var j = 0; j < idAarr2.length; j++) {
-    if (regId == idAarr2[j][0]) {
-      name = idAarr2[j][1]
-      flag = "flags/" + idAarr2[j][2]
-
-      $(this).attr("name", name)
-      $(this).attr("flag", flag)
-    }
-  }
-
-  var regIdDiv =
-    '<div class="reg" >' +
-    "[" +
-    "<span>" +
-    regId +
-    "</span>" +
-    "]" +
-    " " +
-    name +
-    "</div>"
-  $(regIdDiv).appendTo(".regs")
-
-  // var idArrMin = [regId, '_'];
-  // idAarr2.push(idArrMin);
-})
-
-// for (var j = 0; j < idAarr2.length; j++) {
-//   if (regId == idAarr2[j][0]) {
-//     name = cyr2latChars[j][1];
-
-//   }
-// }
-
-function naming() {}
-
-//revertFill();
-
-$(".reg").hover(
-  function (e) {
-    var id = $(this).find("span").text()
-
-    idHover = "#" + id
-
-    $(idHover).css("fill", "#f6e72d")
-    // $('path').not(this).css('fill','rgba(0,0,0,0.5)');
-    // $('.indicator').css({'top':e.pageY,'left':e.pageX+30}).show();
-  },
-  function () {
-    $(".indicator").html("")
-    $(".indicator").hide()
-    $("path").css("fill", "rgba(0,0,0,0.2)")
-  }
-)
-
-//} // revertFill
 var mapOptions = {
     events: {
       mouseWheel: false, // enables mouse wheel zooming events
@@ -299,7 +202,10 @@ var mapOptions = {
   },
   svgPanZoom,
   currentZoom = 0,
+  localCursor,
   currentCityId = null,
+  mapBacklightColor = "#f6e72d",
+  mapBackgroundColor = "rgba(0,0,0,0.2)",
   mapMarkerColor = {
     normal: "red",
     active: "blue",
@@ -327,6 +233,7 @@ var mapOptions = {
       cy: 480,
       next: ["dodo"],
       zoom: true,
+      area: "RU-BU",
     },
     {
       id: "dodo",
@@ -336,6 +243,7 @@ var mapOptions = {
       cy: 505,
       next: ["haracai"],
       zoom: true,
+      area: "RU-BU",
     },
     {
       id: "haracai",
@@ -345,6 +253,7 @@ var mapOptions = {
       cy: 500,
       next: ["kyahta"],
       zoom: true,
+      area: "RU-BU",
     },
     {
       id: "kyahta",
@@ -354,6 +263,7 @@ var mapOptions = {
       cy: 515,
       next: ["kazan"],
       zoom: true,
+      area: "RU-BU",
     },
     {
       id: "kazan",
@@ -363,15 +273,17 @@ var mapOptions = {
       cy: 330,
       next: ["piter", "irkutsk"],
       zoom: false,
+      area: "RU-TA",
     },
     {
       id: "piter",
       name: "г. Санкт-Петербург",
       title: null,
-      cx: 102,
-      cy: 190,
+      cx: 133,
+      cy: 185,
       next: ["kazan"],
       zoom: false,
+      area: "RU-LEN",
     },
     {
       id: "irkutsk",
@@ -381,25 +293,155 @@ var mapOptions = {
       cy: 487,
       next: null,
       zoom: true,
+      area: "RU-IRK",
     },
   ]
+
+$("path").hover(
+  function (e) {
+    $("path").css("fill", "#fff")
+    $(".indicator").html("")
+    var id = $(this).attr("id").toUpperCase()
+
+    if ($(this).attr("name")) {
+      var name = $(this).attr("name")
+      $("<div>" + name + "</div>").appendTo(".indicator")
+    }
+
+    // if ($(this).attr("flag")) {
+    //   var flag = "assets/images/" + $(this).attr("flag")
+    //   console.log(flag)
+    //   $(' <img class="flag" src="" alt="">').appendTo(".indicator")
+    //   $(".indicator").find("img").attr("src", flag)
+    //   // $('<img src='+ flag+ ' >').appendTo('.indicator');
+    // }
+
+    $(".change").remove()
+
+    // var script = document.createElement("script")
+    // // script.classList.add('change');
+    // //script.src = 'http://api.geonames.org/countryInfoJSON?country='+info[id]+'&username=pixeltest&style=full&callback=update';
+    // document.body.appendChild(script)
+
+    $(this).css("fill", mapBacklightColor)
+    $("path").not(this).css("fill", "rgba(0,0,0,0.5)")
+    $(".indicator")
+      .css({ top: e.pageY, left: e.pageX + 30 })
+      .show()
+  },
+  function () {
+    $(".indicator").html("")
+    $(".indicator").hide()
+    $("path").css("fill", mapBackgroundColor)
+  }
+)
+
+$("path").each(function () {
+  var regId = $(this).attr("id")
+  var flag = ""
+  var name = ""
+  for (var j = 0; j < idAarr2.length; j++) {
+    if (regId == idAarr2[j][0]) {
+      name = idAarr2[j][1]
+      flag = "flags/" + idAarr2[j][2]
+
+      $(this).attr("name", name)
+      $(this).attr("flag", flag)
+    }
+  }
+
+  // var regIdDiv =
+  //   '<div class="reg" >' +
+  //   "[" +
+  //   "<span>" +
+  //   regId +
+  //   "</span>" +
+  //   "]" +
+  //   " " +
+  //   name +
+  //   "</div>"
+  // $(regIdDiv).appendTo(".regs")
+
+  // var idArrMin = [regId, '_'];
+  // idAarr2.push(idArrMin);
+})
+
+// for (var j = 0; j < idAarr2.length; j++) {
+//   if (regId == idAarr2[j][0]) {
+//     name = cyr2latChars[j][1];
+
+//   }
+// }
+
+function naming() {}
+
+//revertFill();
+
+$(".reg").hover(
+  function (e) {
+    var id = $(this).find("span").text()
+
+    idHover = "#" + id
+
+    $(idHover).css("fill", mapBacklightColor)
+    // $('path').not(this).css('fill','rgba(0,0,0,0.5)');
+    // $('.indicator').css({'top':e.pageY,'left':e.pageX+30}).show();
+  },
+  function () {
+    $(".indicator").html("")
+    $(".indicator").hide()
+    $("path").css("fill", mapBackgroundColor)
+  }
+)
+
+//} // revertFill
+
 function getCityPoint(id) {
   return cityPoints.find(function (elem) {
     if (elem.id == id) return elem
   })
 }
 
+function areaHighlight(id, color) {
+  $("#" + id).css("fill", color)
+}
+
+function cityMarkerActivate(id, e) {
+  var city = getCityPoint(id)
+  if (city) {
+    areaHighlight(city.area, mapBacklightColor)
+    $(".indicator").html("")
+    var thtml = `<p>Место: ${city.name}</p>`
+    if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
+    $("<div>" + thtml + "</div>").appendTo(".indicator")
+    $(".indicator")
+      .css({ top: e.pageY, left: e.pageX + 30 })
+      .show()
+  }
+}
+
+function cityMarkerDeactivate(id, e) {
+  var city = getCityPoint(id)
+  if (city) {
+    areaHighlight(city.area, mapBackgroundColor)
+  }
+}
+
 function changeMapMarkers(m, cls = ".circle5") {
   $(cls).attr("r", m.normal)
   $(cls).attr("stroke-width", m.strokeNormal)
-  $(cls).on("mouseover", function () {
-    $(this).attr("r", m.active)
-    $(this).attr("stroke-width", m.strokeActive)
-  })
-  $(cls).on("mouseleave", function () {
-    $(this).attr("r", m.normal)
-    $(this).attr("stroke-width", m.strokeNormal)
-  })
+  $(cls).hover(
+    function (e) {
+      $(this).attr("r", m.active)
+      $(this).attr("stroke-width", m.strokeActive)
+      cityMarkerActivate($(this).attr("id"), e)
+    },
+    function (e) {
+      $(this).attr("r", m.normal)
+      $(this).attr("stroke-width", m.strokeNormal)
+      cityMarkerDeactivate($(this).attr("id"), e)
+    }
+  )
 }
 /////////////////////////////////////////// Map Initialization
 function initMap() {
@@ -415,6 +457,25 @@ function initMap() {
   $.each(cityPoints, function (index, val) {
     nextList = val.next
     var svg = document.getElementById("svg2")
+
+    var pt = svg.createSVGPoint()
+
+    // Get point in global SVG space
+    function cursorPoint(evt) {
+      pt.x = evt.clientX
+      pt.y = evt.clientY
+      return pt.matrixTransform(svg.getScreenCTM().inverse())
+    }
+
+    svg.addEventListener(
+      "mousemove",
+      function (evt) {
+        localCursor = cursorPoint(evt)
+        // Use loc.x and loc.y here
+      },
+      false
+    )
+
     if (nextList)
       $.each(nextList, function (ind, v) {
         var city = getCityPoint(v)
@@ -433,16 +494,15 @@ function initMap() {
   })
   changeMapMarkers(mapMarkerNormal)
   $(".circle5").click(clickByPoint)
-  
 
-$( "#svg2" ).dblclick(function() {
-  zoom(0);
-});
+  $("#svg2").dblclick(function () {
+    zoom(0)
+  })
   svgPanZoom = $("#svg2").svgPanZoom(mapOptions)
 }
 
-function zoom(newZoomVal=0) {
-  if (newZoomVal < 0) return false 
+function zoom(newZoomVal = 0) {
+  if (newZoomVal < 0) return false
   if (newZoomVal > currentZoom) {
     currentZoom = newZoomVal
     changeMapMarkers(mapMarkerInZoom)
@@ -457,27 +517,20 @@ function zoom(newZoomVal=0) {
   }
   return false
 }
-////////////////////////////////////////////////
+//==============================================================
 function clickByPoint(event) {
+  //console.log(localCursor)
   var city = getCityPoint(event.currentTarget.id)
   if (currentCityId)
     $("#" + currentCityId).attr("stroke", mapMarkerColor.normal)
   currentCityId = city.id
   $("#" + currentCityId).attr("stroke", mapMarkerColor.active)
 
-  if (city.zoom && currentZoom == 0) {
-    // changeMapMarkers(mapMarkerInZoom)
-    // currentZoom = 2
-    // svgPanZoom.zoomIn(currentZoom)
-    zoom(2)
-  }
-  if (!city.zoom && currentZoom > 0) {
-    // changeMapMarkers(mapMarkerNormal)
-    // svgPanZoom.zoomOut(currentZoom)
-    // currentZoom = 0
-    zoom(0)
-  }
+  if (city.zoom && currentZoom == 0) zoom(2)
+  if (!city.zoom && currentZoom > 0) zoom(0)
+
   svgPanZoom.setCenter(city.cx, city.cy)
+  console.log(localCursor)
 }
 
 $(document).ready(function () {
