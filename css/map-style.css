@@ -1,6 +1,6 @@
-.path {
-  stroke-dasharray: 10;
-  stroke-dashoffset: 1000;
+.path5 {
+  /* stroke-dasharray: 10; */
+  stroke-dashoffset: 400;
   animation: dash 15s linear normal infinite;
 }
 
