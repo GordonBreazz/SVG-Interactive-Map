@@ -237,8 +237,8 @@ var mapOptions = {
   indicatorWindow = {
     show: false,
     offset: {
-      x: 50,
-      y: 50
+      x: 20,
+      y: 20
     }
   },
   cityPoints = [
@@ -346,18 +346,31 @@ $('path').hover(
     $('path')
       .not(this)
       .css('fill', 'rgba(0,0,0,0.5)')
-    $('.indicator')
-      .css({ top: e.pageY - 50, left: e.pageX + 50 })
-      .show()
+    showIndicator(e)
   },
   function () {
-    $('.indicator').html('')
-    $('.indicator').hide()
+    hideIndicator()
     // if (lastCi tyPoint)
     //   if (lastCityPoint.area !=  $(this).attr('id').toUpperCase()) console.log('okkkkkkkkkkkkk',lastCityPoint.area, $(this).attr('id').toUpperCase()
     $('path').css('fill', mapBackgroundColor)
   }
 )
+
+function showIndicator (e) {
+  indicatorWindow.show = true
+  $('.indicator')
+    .css({
+      top: e.pageY + indicatorWindow.offset.y,
+      left: e.pageX + indicatorWindow.offset.x
+    })
+    .show()
+}
+
+function hideIndicator () {
+  indicatorWindow.show = false
+  $('.indicator').html('')
+  $('.indicator').hide()
+}
 
 $('path').each(function () {
   var regId = $(this).attr('id')
@@ -413,8 +426,7 @@ $('.reg').hover(
     // $('.indicator').css({'top':e.pageY,'left':e.pageX+30}).show();
   },
   function () {
-    $('.indicator').html('')
-    $('.indicator').hide()
+    hideIndicator()
     $('path').css('fill', mapBackgroundColor)
   }
 )
@@ -431,7 +443,9 @@ function areaHighlight (id, color) {
   $('#' + id).css('fill', color)
 }
 
-function cityMarkerActivate (id, e) {
+function cityMarkerActivate (id, e, m) {
+  $('#' + id).attr('r', m.active)
+  $('#' + id).attr('stroke-width', m.strokeActive)
   var city = getCityPoint(id)
   if (city) {
     areaHighlight(city.area, mapBacklightColor)
@@ -439,32 +453,49 @@ function cityMarkerActivate (id, e) {
     var thtml = `<p>Место: ${city.name}</p>`
     if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
     $('<div>' + thtml + '</div>').appendTo('.indicator')
-    $('.indicator')
-      .css({ top: e.pageY - 50, left: e.pageX + 50 })
-      .show()
+    showIndicator(e)
   }
 }
 
-function cityMarkerDeactivate (id, e) {
+function cityMarkerDeactivate (id, e, m) {
   var city = getCityPoint(id)
   if (city) {
     areaHighlight(city.area, mapBackgroundColor)
+  }
+  if (currentCityId != id) {
+    $('#' + id).attr('r', m.normal)
+    $('#' + id).attr('stroke-width', m.strokeNormal)
+  }
+}
+
+function pointHighlighter () {
+  var m = mapMarkerInZoom
+  if (currentZoom == 0) m = mapMarkerNormal
+
+  if (currentCityId) {
+    $('#' + currentCityId).attr('r', m.active)
+    $('#' + currentCityId).attr('stroke-width', m.strokeActive)
+    areaHighlight(getCityPoint(currentCityId).area, mapBacklightColor)
+  }
+  console.log(lastCityPoint.id)
+  if (lastCityPoint.id !== '') {
+    $('#' + lastCityPoint.id).attr('r', m.normal)
+    $('#' + lastCityPoint.id).attr('stroke-width', m.strokeNormal)
+    areaHighlight(getCityPoint(lastCityPoint.id).area, mapBackgroundColor)
   }
 }
 
 function changeMapMarkers (m, cls = '.circle5') {
   $(cls).attr('r', m.normal)
   $(cls).attr('stroke-width', m.strokeNormal)
+  pointHighlighter(m)
+
   $(cls).hover(
     function (e) {
-      $(this).attr('r', m.active)
-      $(this).attr('stroke-width', m.strokeActive)
-      cityMarkerActivate($(this).attr('id'), e)
+      cityMarkerActivate($(this).attr('id'), e, m)
     },
     function (e) {
-      $(this).attr('r', m.normal)
-      $(this).attr('stroke-width', m.strokeNormal)
-      cityMarkerDeactivate($(this).attr('id'), e)
+      cityMarkerDeactivate($(this).attr('id'), e, m)
     }
   )
   $('.path5').attr('stroke-width', m.lineStrokeWidth)
@@ -532,14 +563,14 @@ function zoom (newZoomVal = 0) {
   if (newZoomVal < 0) return false
   if (newZoomVal > currentZoom) {
     currentZoom = newZoomVal
-    changeMapMarkers(mapMarkerInZoom)
     svgPanZoom.zoomIn(currentZoom)
+    changeMapMarkers(mapMarkerInZoom)
     return true
   }
   if (newZoomVal < currentZoom) {
-    changeMapMarkers(mapMarkerNormal)
     svgPanZoom.zoomOut(currentZoom - newZoomVal)
     currentZoom = newZoomVal
+    changeMapMarkers(mapMarkerNormal)
     return true
   }
   return false
@@ -573,14 +604,15 @@ function clickByPoint (event) {
 
   if (city.zoom && currentZoom == 0) {
     zoom(zoomFactor)
-    svgPanZoom.setCenter(city.cx, city.cy)
+    //svgPanZoom.setCenter(city.cx, city.cy)
   }
 
   if (!city.zoom && currentZoom > 0) {
     zoom(0)
-    svgPanZoom.setCenter(city.cx, city.cy)
+    //svgPanZoom.setCenter(city.cx, city.cy)
   }
-
+  svgPanZoom.setCenter(city.cx, city.cy)
+  pointHighlighter()
   lastCityPoint = city
 }
 

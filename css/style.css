@@ -17,7 +17,7 @@ path{transition:all .5s; fill:rgba(0,0,0,0.6);stroke: rgba(0,0,0,0.5);}
   border: 7px double #ffffff;
   min-width:200px;
   min-height:50px;
-  border-radius:  50px 0px 50px 0px;
+  border-radius: 0px 50px 0px 50px;
   transition: visibility 0s, opacity 0.5s linear;
   /* text-transform:capitalize; */
   display:none;
