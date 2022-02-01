@@ -20,6 +20,13 @@
   }
 }
 
+@keyframes spin { 
+  100% { 
+    transform: rotate(360deg);
+  }
+}
+
+
 .innerCircle {
   animation-duration: 1s;
   animation-iteration-count: infinite;
@@ -30,4 +37,19 @@
 .circle5:hover {
   /* filter: grayscale(100%) sepia(100%); */
   cursor: pointer;
+}
+
+.active-point{
+  stroke-dasharray: 13, 12;
+  stroke-dashoffset: 300  ;
+  animation: dash 20s linear normal infinite;
+  stroke-linecap: round;
+  
+
+}
+.active-point-zoom{
+  stroke-dasharray: 6, 3.3;
+  stroke-dashoffset: 170;
+  animation: dash 30s linear normal infinite;
+  stroke-linecap: round;
 }

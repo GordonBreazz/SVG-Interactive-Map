@@ -221,15 +221,17 @@ var mapOptions = {
     strokeNormal: 2,
     strokeActive: 3.5,
     lineStrokeWidth: 4,
-    lineStrokeDasharray: '10'
+    lineStrokeDasharray: '10',
+    activeClss: 'active-point'
   },
   mapMarkerInZoom = {
     normal: 1.5,
     active: 3,
     strokeNormal: 1,
-    strokeActive: 2,
+    strokeActive: 1.5,
     lineStrokeWidth: '1.5',
-    lineStrokeDasharray: '5'
+    lineStrokeDasharray: 6,
+    activeClss: 'active-point-zoom'
   },
   lastCityPoint = {
     id: ''
@@ -578,11 +580,18 @@ function zoom (newZoomVal = 0) {
 //==============================================================
 function clickByPoint (event) {
   //console.log(localCursor)
+  var m1
   var city = getCityPoint(event.currentTarget.id)
-  if (currentCityId)
+    if (city.zoom ) m1 = mapMarkerInZoom 
+    else m1 = mapMarkerNormal
+  if (currentCityId) {
     $('#' + currentCityId).attr('stroke', mapMarkerColor.normal)
+    $('#' + currentCityId).removeClass( mapMarkerNormal.activeClss )  
+    $('#' + currentCityId).removeClass( mapMarkerInZoom.activeClss )  
+  }
   currentCityId = city.id
   $('#' + currentCityId).attr('stroke', mapMarkerColor.active)
+  $('#' + currentCityId).addClass( m1.activeClss )
 
   //draw lines between points
   $('.path5').attr('visibility', 'hidden')
