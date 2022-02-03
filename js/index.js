@@ -318,7 +318,7 @@ var mapOptions = {
 
 $('path').hover(
   function (e) {
-    $('path').css('fill', '#fff')
+    // $('path').css('fill', '#fff')
     $('.indicator').html('')
     var id = $(this)
       .attr('id')
@@ -337,7 +337,7 @@ $('path').hover(
     //   // $('<img src='+ flag+ ' >').appendTo('.indicator');
     // }
 
-    $('.change').remove()
+    // $('.change').remove()
 
     // var script = document.createElement("script")
     // // script.classList.add('change');
@@ -345,16 +345,16 @@ $('path').hover(
     // document.body.appendChild(script)
 
     $(this).css('fill', mapBacklightColor)
-    $('path')
-      .not(this)
-      .css('fill', 'rgba(0,0,0,0.5)')
+    // $('path')
+    //   .not(this)
+    //   .css('fill', mapBackgroundColor)
     showIndicator(e)
   },
   function () {
-    hideIndicator()
+    //hideIndicator()
     // if (lastCi tyPoint)
     //   if (lastCityPoint.area !=  $(this).attr('id').toUpperCase()) console.log('okkkkkkkkkkkkk',lastCityPoint.area, $(this).attr('id').toUpperCase()
-    $('path').css('fill', mapBackgroundColor)
+    $(this).css('fill', mapBackgroundColor)
   }
 )
 
@@ -415,23 +415,23 @@ function naming () {}
 
 //revertFill();
 
-$('.reg').hover(
-  function (e) {
-    var id = $(this)
-      .find('span')
-      .text()
+// $('.reg').hover(
+//   function (e) {
+//     var id = $(this)
+//       .find('span')
+//       .text()
 
-    idHover = '#' + id
+//     idHover = '#' + id
 
-    $(idHover).css('fill', mapBacklightColor)
-    // $('path').not(this).css('fill','rgba(0,0,0,0.5)');
-    // $('.indicator').css({'top':e.pageY,'left':e.pageX+30}).show();
-  },
-  function () {
-    hideIndicator()
-    $('path').css('fill', mapBackgroundColor)
-  }
-)
+//     $(idHover).css('fill', mapBacklightColor)
+//     // $('path').not(this).css('fill','rgba(0,0,0,0.5)');
+//     // $('.indicator').css({'top':e.pageY,'left':e.pageX+30}).show();
+//   },
+//   function () {
+//     hideIndicator()
+//     $('path').css('fill', mapBackgroundColor)
+//   }
+// )
 
 //} // revertFill
 
@@ -441,8 +441,13 @@ function getCityPoint (id) {
   })
 }
 
-function areaHighlight (id, color) {
-  $('#' + id).css('fill', color)
+function areaHighlight (id, color = mapBacklightColor) {
+  var tmp = getCityPoint(id)
+  if (tmp) {
+    if ($('#' + tmp.area).length > 0) {
+      $('#' + tmp.area).css('fill', color)
+    }
+  }
 }
 
 function cityMarkerActivate (id, e, m) {
@@ -450,7 +455,7 @@ function cityMarkerActivate (id, e, m) {
   $('#' + id).attr('stroke-width', m.strokeActive)
   var city = getCityPoint(id)
   if (city) {
-    areaHighlight(city.area, mapBacklightColor)
+    //areaHighlight(city.area, mapBacklightColor)
     $('.indicator').html('')
     var thtml = `<p>Место: ${city.name}</p>`
     if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
@@ -462,7 +467,7 @@ function cityMarkerActivate (id, e, m) {
 function cityMarkerDeactivate (id, e, m) {
   var city = getCityPoint(id)
   if (city) {
-    areaHighlight(city.area, mapBackgroundColor)
+    //areaHighlight(city.area, mapBackgroundColor)
   }
   if (currentCityId != id) {
     $('#' + id).attr('r', m.normal)
@@ -477,13 +482,11 @@ function pointHighlighter () {
   if (currentCityId) {
     $('#' + currentCityId).attr('r', m.active)
     $('#' + currentCityId).attr('stroke-width', m.strokeActive)
-    areaHighlight(getCityPoint(currentCityId).area, mapBacklightColor)
   }
-  console.log(lastCityPoint.id)
-  if (lastCityPoint.id !== '') {
+  //console.log(lastCityPoint.id)
+  if (lastCityPoint.id && lastCityPoint.id != currentCityId) {
     $('#' + lastCityPoint.id).attr('r', m.normal)
     $('#' + lastCityPoint.id).attr('stroke-width', m.strokeNormal)
-    areaHighlight(getCityPoint(lastCityPoint.id).area, mapBackgroundColor)
   }
 }
 
@@ -505,7 +508,6 @@ function changeMapMarkers (m, cls = '.circle5') {
 }
 /////////////////////////////////////////// Map Initialization
 function initMap () {
-  // Insert Lines
   $.each(cityPoints, function (index, val) {
     nextList = val.next
     var svg = document.getElementById('svg2')
@@ -559,6 +561,7 @@ function initMap () {
     zoom(0)
   })
   svgPanZoom = $('#svg2').svgPanZoom(mapOptions)
+  $('path').css('fill', mapBackgroundColor)
 }
 
 function zoom (newZoomVal = 0) {
@@ -572,7 +575,11 @@ function zoom (newZoomVal = 0) {
   if (newZoomVal < currentZoom) {
     svgPanZoom.zoomOut(currentZoom - newZoomVal)
     currentZoom = newZoomVal
+    pointHighlighter()
     changeMapMarkers(mapMarkerNormal)
+    $('#' + currentCityId).removeClass(mapMarkerInZoom.activeClss)
+    $('#' + currentCityId).addClass(mapMarkerNormal.activeClss)
+
     return true
   }
   return false
@@ -580,18 +587,18 @@ function zoom (newZoomVal = 0) {
 //==============================================================
 function clickByPoint (event) {
   //console.log(localCursor)
-  var m1
-  var city = getCityPoint(event.currentTarget.id)
-    if (city.zoom ) m1 = mapMarkerInZoom 
-    else m1 = mapMarkerNormal
+  var m1,
+    city = getCityPoint(event.currentTarget.id)
+  if (city.zoom) m1 = mapMarkerInZoom
+  else m1 = mapMarkerNormal
   if (currentCityId) {
     $('#' + currentCityId).attr('stroke', mapMarkerColor.normal)
-    $('#' + currentCityId).removeClass( mapMarkerNormal.activeClss )  
-    $('#' + currentCityId).removeClass( mapMarkerInZoom.activeClss )  
+    $('#' + currentCityId).removeClass(mapMarkerNormal.activeClss)
+    $('#' + currentCityId).removeClass(mapMarkerInZoom.activeClss)
   }
   currentCityId = city.id
   $('#' + currentCityId).attr('stroke', mapMarkerColor.active)
-  $('#' + currentCityId).addClass( m1.activeClss )
+  $('#' + currentCityId).addClass(m1.activeClss)
 
   //draw lines between points
   $('.path5').attr('visibility', 'hidden')
@@ -622,6 +629,9 @@ function clickByPoint (event) {
   }
   svgPanZoom.setCenter(city.cx, city.cy)
   pointHighlighter()
+  areaHighlight(currentCityId)
+  if (getCityPoint(currentCityId))
+    areaHighlight(getCityPoint(currentCityId).next[0])
   lastCityPoint = city
 }
 
