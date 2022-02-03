@@ -44,7 +44,7 @@
   stroke-dashoffset: 300  ;
   animation: dash 20s linear normal infinite;
   stroke-linecap: round;
-  
+  box-shadow: -5px -5px 5px #888; 
 
 }
 .active-point-zoom{
