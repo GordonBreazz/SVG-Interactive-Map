@@ -175,31 +175,31 @@ var idAarr2 = new Array(
 )
 
 var mapOptions = {
-    events: {
-      mouseWheel: false, // enables mouse wheel zooming events
-      doubleClick: false, // enables double-click to zoom-in events
-      drag: true, // enables drag and drop to move the SVG events
-      dragCursor: 'move' // cursor to use while dragging the SVG
-    },
-    animationTime: 300, // time in milliseconds to use as default for animations. Set 0 to remove the animation
-    zoomFactor: 0.25, // how much to zoom-in or zoom-out
-    maxZoom: 3, //maximum zoom in, must be a number bigger than 1
-    panFactor: 100 // how much to move the viewBox when calling .panDirection() methods
-    // initialViewBox: {
-    //   // the initial viewBox, if null or undefined will try to use the viewBox set in the svg tag. Also accepts string in the format "X Y Width Height"
-    //   x: 0, // the top-left corner X coordinate
-    //   y: 0, // the top-left corner Y coordinate
-    //   width: 1000, // the width of the viewBox
-    //   height: 1000 // the height of the viewBox
-    // },
-    // limits: {
-    //   // the limits in which the image can be moved. If null or undefined will use the initialViewBox plus 15% in each direction
-    //   x: -150,
-    //   y: -150,
-    //   x2: 1150,
-    //   y2: 1150
-    // }
+  events: {
+    mouseWheel: false, // enables mouse wheel zooming events
+    doubleClick: false, // enables double-click to zoom-in events
+    drag: true, // enables drag and drop to move the SVG events
+    dragCursor: 'move' // cursor to use while dragging the SVG
   },
+  animationTime: 300, // time in milliseconds to use as default for animations. Set 0 to remove the animation
+  zoomFactor: 0.25, // how much to zoom-in or zoom-out
+  maxZoom: 3, //maximum zoom in, must be a number bigger than 1
+  panFactor: 100 // how much to move the viewBox when calling .panDirection() methods
+  // initialViewBox: {
+  //   // the initial viewBox, if null or undefined will try to use the viewBox set in the svg tag. Also accepts string in the format "X Y Width Height"
+  //   x: 0, // the top-left corner X coordinate
+  //   y: 0, // the top-left corner Y coordinate
+  //   width: 1000, // the width of the viewBox
+  //   height: 1000 // the height of the viewBox
+  // },
+  // limits: {
+  //   // the limits in which the image can be moved. If null or undefined will use the initialViewBox plus 15% in each direction
+  //   x: -150,
+  //   y: -150,
+  //   x2: 1150,
+  //   y2: 1150
+  // }
+},
   svgPanZoom,
   currentZoom = 0,
   zoomFactor = 4,
@@ -207,6 +207,7 @@ var mapOptions = {
   currentCityId = null,
   mapBacklightColor = '#f6e72d',
   mapBackgroundColor = 'rgba(0,0,0,0.2)',
+  areaList = [],
   mapMarkerColor = {
     normal: 'red',
     active: 'blue',
@@ -311,7 +312,7 @@ var mapOptions = {
       cx: 568,
       cy: 487,
       next: null,
-      zoom: true,
+      zoom: false,
       area: 'RU-IRK'
     }
   ]
@@ -354,11 +355,13 @@ $('path').hover(
     //hideIndicator()
     // if (lastCi tyPoint)
     //   if (lastCityPoint.area !=  $(this).attr('id').toUpperCase()) console.log('okkkkkkkkkkkkk',lastCityPoint.area, $(this).attr('id').toUpperCase()
-    $(this).css('fill', mapBackgroundColor)
+    $('path').css('fill', mapBackgroundColor)
+    areaHighlight()
+
   }
 )
 
-function showIndicator (e) {
+function showIndicator(e) {
   indicatorWindow.show = true
   $('.indicator')
     .css({
@@ -368,7 +371,7 @@ function showIndicator (e) {
     .show()
 }
 
-function hideIndicator () {
+function hideIndicator() {
   indicatorWindow.show = false
   $('.indicator').html('')
   $('.indicator').hide()
@@ -411,7 +414,7 @@ $('path').each(function () {
 //   }
 // }
 
-function naming () {}
+function naming() { }
 
 //revertFill();
 
@@ -435,22 +438,35 @@ function naming () {}
 
 //} // revertFill
 
-function getCityPoint (id) {
+function getCityPoint(id) {
   return cityPoints.find(function (elem) {
     if (elem.id == id) return elem
   })
 }
 
-function areaHighlight (id, color = mapBacklightColor) {
-  var tmp = getCityPoint(id)
-  if (tmp) {
-    if ($('#' + tmp.area).length > 0) {
-      $('#' + tmp.area).css('fill', color)
-    }
+function setAriasList(id) {
+  let city = getCityPoint(id)
+  areaList = [city.area]
+  for (let item of city.next) {
+    let nexCity = getCityPoint(item)
+    areaList.push(nexCity.area)
   }
+  areaHighlight()
+  return areaList
 }
 
-function cityMarkerActivate (id, e, m) {
+function areaHighlight(color = mapBacklightColor) {
+  for (let id of areaList)
+    $('#' + id).css('fill', color)
+  // var tmp = getCityPoint(id)
+  // if (tmp) {
+  //   if ($('#' + tmp.area).length > 0) {
+  //     $('#' + tmp.area).css('fill', color)
+  //   }
+  // }
+}
+
+function cityMarkerActivate(id, e, m) {
   $('#' + id).attr('r', m.active)
   $('#' + id).attr('stroke-width', m.strokeActive)
   var city = getCityPoint(id)
@@ -464,7 +480,7 @@ function cityMarkerActivate (id, e, m) {
   }
 }
 
-function cityMarkerDeactivate (id, e, m) {
+function cityMarkerDeactivate(id, e, m) {
   var city = getCityPoint(id)
   if (city) {
     //areaHighlight(city.area, mapBackgroundColor)
@@ -475,7 +491,7 @@ function cityMarkerDeactivate (id, e, m) {
   }
 }
 
-function pointHighlighter () {
+function pointHighlighter() {
   var m = mapMarkerInZoom
   if (currentZoom == 0) m = mapMarkerNormal
 
@@ -490,7 +506,7 @@ function pointHighlighter () {
   }
 }
 
-function changeMapMarkers (m, cls = '.circle5') {
+function changeMapMarkers(m, cls = '.circle5') {
   $(cls).attr('r', m.normal)
   $(cls).attr('stroke-width', m.strokeNormal)
   pointHighlighter(m)
@@ -507,7 +523,7 @@ function changeMapMarkers (m, cls = '.circle5') {
   $('.path5').attr('stroke-dasharray', m.lineStrokeDasharray)
 }
 /////////////////////////////////////////// Map Initialization
-function initMap () {
+function initMap() {
   $.each(cityPoints, function (index, val) {
     nextList = val.next
     var svg = document.getElementById('svg2')
@@ -535,10 +551,8 @@ function initMap () {
         var city = getCityPoint(v)
         svg.insertAdjacentHTML(
           'beforeend',
-          `<line id="${val.id + '_' + v}" class="path5" x2="${city.cx}" x1="${
-            val.cx
-          }" y2="${city.cy}" y1="${val.cy}" stroke="${
-            mapMarkerColor.lineColor
+          `<line id="${val.id + '_' + v}" class="path5" x2="${city.cx}" x1="${val.cx
+          }" y2="${city.cy}" y1="${val.cy}" stroke="${mapMarkerColor.lineColor
           }" opacity="${mapMarkerColor.lineOpacity}" fill="transparent"
       stroke-width="5" stroke-dasharray="10 5" visibility="hidden" stroke-linecap="round" />`
         )
@@ -564,7 +578,7 @@ function initMap () {
   $('path').css('fill', mapBackgroundColor)
 }
 
-function zoom (newZoomVal = 0) {
+function zoom(newZoomVal = 0) {
   if (newZoomVal < 0) return false
   if (newZoomVal > currentZoom) {
     currentZoom = newZoomVal
@@ -585,7 +599,7 @@ function zoom (newZoomVal = 0) {
   return false
 }
 //==============================================================
-function clickByPoint (event) {
+function clickByPoint(event) {
   //console.log(localCursor)
   var m1,
     city = getCityPoint(event.currentTarget.id)
@@ -629,9 +643,10 @@ function clickByPoint (event) {
   }
   svgPanZoom.setCenter(city.cx, city.cy)
   pointHighlighter()
-  areaHighlight(currentCityId)
-  if (getCityPoint(currentCityId))
-    areaHighlight(getCityPoint(currentCityId).next[0])
+  // areaHighlight(currentCityId)
+  // if (getCityPoint(currentCityId))
+  //   areaHighlight(getCityPoint(currentCityId).next[0])
+  console.log(setAriasList(currentCityId))
   lastCityPoint = city
 }
 
