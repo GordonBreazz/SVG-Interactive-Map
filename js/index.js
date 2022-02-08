@@ -282,7 +282,7 @@ var mapOptions = {
       cx: 585,
       cy: 515,
       next: ["kazan"],
-      zoom: false,
+      zoom: true,
       area: "RU-BU",
     },
     {
