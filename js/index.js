@@ -202,17 +202,19 @@ var mapOptions = {
   },
   svgPanZoom,
   currentZoom = 0,
-  zoomFactor = 4,
+  zoomFactor = 3,
   localCursor,
   currentCityId = null,
-  mapBacklightColor = "#f6e72d",
+  mapBacklightColor = "#f5d78c", //"#00fff8",//"#00d7ff"//"#00ff82",
+  mapHoverRegionColor = "#f6e72d",
   mapBackgroundColor = "rgba(0,0,0,0.2)",
   areaList = [],
+  countdown,
   mapMarkerColor = {
     normal: "red",
     active: "blue",
     fill: "transparent",
-    opacity: 0.8,
+    opacity: 1,
     lineColor: "orange",
     lineOpacity: 1,
   },
@@ -239,9 +241,13 @@ var mapOptions = {
   },
   indicatorWindow = {
     show: false,
+    position: {
+      x: 0,
+      y: 0,
+    },
     offset: {
-      x: 20,
-      y: 20,
+      x: 9,
+      y: 9,
     },
   },
   cityPoints = [
@@ -282,7 +288,7 @@ var mapOptions = {
       cx: 585,
       cy: 515,
       next: ["kazan"],
-      zoom: true,
+      zoom: false,
       area: "RU-BU",
     },
     {
@@ -317,15 +323,23 @@ var mapOptions = {
     },
   ]
 
+$("path").mousemove(function (e) {
+  indicatorWindow.position.x = e.pageX
+  indicatorWindow.position.y = e.pageY
+})
+
 $("path").hover(
   function (e) {
     // $('path').css('fill', '#fff')
-    $(".indicator").html("")
+    hideIndicator()
     var id = $(this).attr("id").toUpperCase()
+    clearTimeout(countdown)
 
     if ($(this).attr("name")) {
       var name = $(this).attr("name")
-      $("<div>" + name + "</div>").appendTo(".indicator")
+      countdown = setTimeout(function () {
+        showIndicator(e, name)
+      }, 1000)
     }
 
     // if ($(this).attr("flag")) {
@@ -343,11 +357,10 @@ $("path").hover(
     // //script.src = 'http://api.geonames.org/countryInfoJSON?country='+info[id]+'&username=pixeltest&style=full&callback=update';
     // document.body.appendChild(script)
 
-    $(this).css("fill", mapBacklightColor)
+    $(this).css("fill", mapHoverRegionColor)
     // $('path')
     //   .not(this)
     //   .css('fill', mapBackgroundColor)
-    showIndicator(e)
   },
   function () {
     //hideIndicator()
@@ -358,14 +371,17 @@ $("path").hover(
   }
 )
 
-function showIndicator(e) {
-  indicatorWindow.show = true
+function showIndicator(e, htmlText) {
+  if (indicatorWindow.show) hideIndicator()
+  clearTimeout(countdown)
+  $("<div>" + htmlText + "</div>").appendTo(".indicator")
   $(".indicator")
     .css({
-      top: e.pageY + indicatorWindow.offset.y,
-      left: e.pageX + indicatorWindow.offset.x,
+      top: indicatorWindow.position.y + indicatorWindow.offset.y,
+      left: indicatorWindow.position.x + indicatorWindow.offset.x,
     })
     .show()
+  indicatorWindow.show = true
 }
 
 function hideIndicator() {
@@ -468,11 +484,9 @@ function cityMarkerActivate(id, e, m) {
   var city = getCityPoint(id)
   if (city) {
     //areaHighlight(city.area, mapBacklightColor)
-    $(".indicator").html("")
     var thtml = `<p>Место: ${city.name}</p>`
     if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
-    $("<div>" + thtml + "</div>").appendTo(".indicator")
-    showIndicator(e)
+    showIndicator(e, thtml)
   }
 }
 
@@ -500,6 +514,7 @@ function pointHighlighter() {
     $("#" + lastCityPoint.id).attr("r", m.normal)
     $("#" + lastCityPoint.id).attr("stroke-width", m.strokeNormal)
   }
+  hideIndicator()
 }
 
 function changeMapMarkers(m, cls = ".circle5") {
@@ -600,14 +615,14 @@ function zoom(newZoomVal = 0) {
 function drawLine(sId, fId) {
   $("#" + sId + "_" + fId).attr("visibility", "visibility")
   getCityPoint(sId).area
-  areaList = [getCityPoint(sId).area, getCityPoint(fId).area]
+  areaList = [...areaList, getCityPoint(sId).area, getCityPoint(fId).area]
   areaHighlight()
 }
 //==============================================================
 function clickByPoint(event) {
   var m1,
     city = getCityPoint(event.currentTarget.id)
-  areaList = [city.area]  
+  areaList = [city.area]
   if (city.zoom) m1 = mapMarkerInZoom
   else m1 = mapMarkerNormal
   if (currentCityId) {
@@ -631,14 +646,13 @@ function clickByPoint(event) {
 
   if (city.zoom && currentZoom == 0) {
     zoom(zoomFactor)
-    //svgPanZoom.setCenter(city.cx, city.cy)
+    svgPanZoom.setCenter(city.cx, city.cy)
   }
 
   if (!city.zoom && currentZoom > 0) {
     zoom(0)
-    //svgPanZoom.setCenter(city.cx, city.cy)
   }
-  svgPanZoom.setCenter(city.cx, city.cy)
+  //svgPanZoom.setCenter(city.cx, city.cy)
   pointHighlighter()
   // areaHighlight(currentCityId)
   // if (getCityPoint(currentCityId))
