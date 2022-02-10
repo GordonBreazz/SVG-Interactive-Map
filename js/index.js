@@ -1,178 +1,361 @@
-var idAarr = [
-  "RU-MOW",
-  "RU-SPE",
-  "RU-NEN",
-  "RU-YAR",
-  "RU-CHE",
-  "RU-ULY",
-  "RU-TYU",
-  "RU-TUL",
-  "RU-SVE",
-  "RU-RYA",
-  "RU-ORL",
-  "RU-OMS",
-  "RU-NGR",
-  "RU-LIP",
-  "RU-KRS",
-  "RU-KGN",
-  "RU-KGD",
-  "RU-IVA",
-  "RU-BRY",
-  "RU-AST",
-  "RU-KHA",
-  "RU-CE",
-  "RU-UD",
-  "RU-SE",
-  "RU-MO",
-  "RU-KR",
-  "RU-KL",
-  "RU-IN",
-  "RU-AL",
-  "RU-BA",
-  "RU-AD",
-  "RU-CR",
-  "RU-SEV",
-  "RU-KO",
-  "RU-KIR",
-  "RU-PNZ",
-  "RU-TAM",
-  "RU-MUR",
-  "RU-LEN",
-  "RU-VLG",
-  "RU-KOS",
-  "RU-PSK",
-  "RU-ARK",
-  "RU-YAN",
-  "RU-CHU",
-  "RU-YEV",
-  "RU-TY",
-  "RU-SAK",
-  "RU-AMU",
-  "RU-BU",
-  "RU-KK",
-  "RU-KEM",
-  "RU-NVS",
-  "RU-ALT",
-  "RU-DA",
-  "RU-STA",
-  "RU-KB",
-  "RU-KC",
-  "RU-KDA",
-  "RU-ROS",
-  "RU-SAM",
-  "RU-TA",
-  "RU-ME",
-  "RU-CU",
-  "RU-NIZ",
-  "RU-VLA",
-  "RU-MOS",
-  "RU-KLU",
-  "RU-BEL",
-  "RU-ZAB",
-  "RU-PRI",
-  "RU-KAM",
-  "RU-MAG",
-  "RU-SA",
-  "RU-KYA",
-  "RU-ORE",
-  "RU-SAR",
-  "RU-VGG",
-  "RU-VOR",
-  "RU-SMO",
-  "RU-TVE",
-  "RU-PER",
-  "RU-KHM",
-  "RU-TOM",
-  "RU-IRK",
-]
-var idAarr2 = new Array(
-  ["RU-MOW", "Москва", ""],
-  ["RU-CHE", "Челябинская область", ""],
-  ["RU-ORL", "Орловская область"],
-  ["RU-OMS", "Омская область", ""],
-  ["RU-LIP", "Липецкая область", ""],
-  ["RU-KRS", "Курская область", ""],
-  ["RU-RYA", "Рязанская область", ""],
-  ["RU-BRY", "Брянская область", ""],
-  ["RU-KIR", "Кировская область", ""],
-  ["RU-ARK", "Архангельская область", ""],
-  ["RU-MUR", "Мурманская область", ""],
-  ["RU-SPE", "Санкт-Петербург", ""],
-  ["RU-YAR", "Ярославская область", ""],
-  ["RU-ULY", "Ульяновская область", ""],
-  ["RU-NVS", "Новосибирская область", ""],
-  ["RU-TYU", "Тюменская область", ""],
-  ["RU-SVE", "Свердловская область", ""],
-  ["RU-NGR", "Новгородская область", ""],
-  ["RU-KGN", "Курганская область", ""],
-  ["RU-KGD", "Калининградская область", ""],
-  ["RU-IVA", "Ивановская область", ""],
-  ["RU-AST", "Астраханская область", ""],
-  ["RU-KHA", "Хабаровский край", ""],
-  ["RU-CE", "Чеченская республика", ""],
-  ["RU-UD", "Удмуртская республика", ""],
-  ["RU-SE", "Республика Северная Осетия", ""],
-  ["RU-MO", "Республика Мордовия", ""],
-  ["RU-KR", "Республика  Карелия", ""],
-  ["RU-KL", "Республика  Калмыкия", ""],
-  ["RU-IN", "Республика  Ингушетия", ""],
-  ["RU-AL", "Республика Алтай", ""],
-  ["RU-BA", "Республика Башкортостан", ""],
-  ["RU-AD", "Республика Адыгея", ""],
-  ["RU-CR", "Республика Крым", ""],
-  ["RU-SEV", "Севастополь", ""],
-  ["RU-KO", "Республика Коми", ""],
-  ["RU-PNZ", "Пензенская область", ""],
-  ["RU-TAM", "Тамбовская область", ""],
-  ["RU-LEN", "Ленинградская область", ""],
-  ["RU-VLG", "Вологодская область", ""],
-  ["RU-KOS", "Костромская область", ""],
-  ["RU-PSK", "Псковская область", ""],
-  ["RU-YAN", "Ямало-Ненецкий АО", ""],
-  ["RU-CHU", "Чукотский АО", ""],
-  ["RU-YEV", "Еврейская автономская область", ""],
-  ["RU-TY", "Республика Тыва", ""],
-  ["RU-SAK", "Сахалинская область", ""],
-  ["RU-AMU", "Амурская область", ""],
-  ["RU-BU", "Республика Бурятия", ""],
-  ["RU-KK", "Республика Хакасия", ""],
-  ["RU-KEM", "Кемеровская область", ""],
-  ["RU-ALT", "Алтайский край", ""],
-  ["RU-DA", "Республика Дагестан", ""],
-  ["RU-KB", "Кабардино-Балкарская республика", ""],
-  ["RU-KC", "Карачаевая-Черкесская республика", ""],
-  ["RU-KDA", "Краснодарский край", ""],
-  ["RU-ROS", "Ростовская область", ""],
-  ["RU-SAM", "Самарская область", ""],
-  ["RU-TA", "Республика Татарстан", ""],
-  ["RU-ME", "Республика Марий Эл", ""],
-  ["RU-CU", "Чувашская республика", ""],
-  ["RU-NIZ", "Нижегородская край", ""],
-  ["RU-VLA", "Владимировская область", ""],
-  ["RU-MOS", "Московская область", ""],
-  ["RU-KLU", "Калужская область", ""],
-  ["RU-BEL", "Белгородская область", ""],
-  ["RU-ZAB", "Забайкальский край", ""],
-  ["RU-PRI", "Приморский край", ""],
-  ["RU-KAM", "Камачатский край", ""],
-  ["RU-MAG", "Магаданская область", ""],
-  ["RU-SA", "Республика Саха", ""],
-  ["RU-KYA", "Красноярский край", ""],
-  ["RU-ORE", "Оренбургская область", ""],
-  ["RU-SAR", "Саратовская область", ""],
-  ["RU-VGG", "Волгоградская область", ""],
-  ["RU-VOR", "Ставропольский край", ""],
-  ["RU-SMO", "Смоленская область", ""],
-  ["RU-TVE", "Тверская область", ""],
-  ["RU-PER", "Пермская область", ""],
-  ["RU-KHM", "Ханты-Мансийский АО", ""],
-  ["RU-KHM", "Ханты-Мансийский АО", ""],
-  ["RU-TOM", "Томская область", ""],
-  ["RU-IRK", "Иркутская область", ""],
-  ["RU-NEN", "Ненецскй АО", ""],
-  ["RU-STA", "Ставропольский край", ""],
-  ["RU-TUL", "Тульская область", "tulskaya_flag.png"]
-)
+var idAarr = {
+  "RU-MOW": {
+    title: "Москва",
+  },
+  "RU-CHE": {
+    title: "Челябинская область",
+  },
+  "RU-ORL": {
+    title: "Орловская область",
+  },
+  "RU-OMS": {
+    title: "Омская область",
+  },
+  "RU-LIP": {
+    title: "Липецкая область",
+  },
+  "RU-KRS": {
+    title: "Курская область",
+  },
+  "RU-RYA": {
+    title: "Рязанская область",
+  },
+  "RU-BRY": {
+    title: "Брянская область",
+  },
+  "RU-KIR": {
+    title: "Кировская область",
+  },
+  "RU-ARK": {
+    title: "Архангельская область",
+  },
+  "RU-MUR": {
+    title: "Мурманская область",
+  },
+  "RU-SPE": {
+    title: "Санкт-Петербург",
+  },
+  "RU-YAR": {
+    title: "Ярославская область",
+  },
+  "RU-ULY": {
+    title: "Ульяновская область",
+  },
+  "RU-NVS": {
+    title: "Новосибирская область",
+  },
+  "RU-TYU": {
+    title: "Тюменская область",
+  },
+  "RU-SVE": {
+    title: "Свердловская область",
+  },
+  "RU-NGR": {
+    title: "Новгородская область",
+  },
+  "RU-KGN": {
+    title: "Курганская область",
+  },
+  "RU-KGD": {
+    title: "Калининградская область",
+  },
+  "RU-IVA": {
+    title: "Ивановская область",
+  },
+  "RU-AST": {
+    title: "Астраханская область",
+  },
+  "RU-KHA": {
+    title: "Хабаровский край",
+  },
+  "RU-CE": {
+    title: "Чеченская республика",
+  },
+  "RU-UD": {
+    title: "Удмуртская республика",
+  },
+  "RU-SE": {
+    title: "Республика Северная Осетия",
+  },
+  "RU-MO": {
+    title: "Республика Мордовия",
+  },
+  "RU-KR": {
+    title: "Республика  Карелия",
+  },
+  "RU-KL": {
+    title: "Республика  Калмыкия",
+  },
+  "RU-IN": {
+    title: "Республика  Ингушетия",
+  },
+  "RU-AL": {
+    title: "Республика Алтай",
+  },
+  "RU-BA": {
+    title: "Республика Башкортостан",
+  },
+  "RU-AD": {
+    title: "Республика Адыгея",
+  },
+  "RU-CR": {
+    title: "Республика Крым",
+  },
+  "RU-SEV": {
+    title: "Севастополь",
+  },
+  "RU-KO": {
+    title: "Республика Коми",
+  },
+  "RU-PNZ": {
+    title: "Пензенская область",
+  },
+  "RU-TAM": {
+    title: "Тамбовская область",
+  },
+  "RU-LEN": {
+    title: "Ленинградская область",
+    info: "В XIX веке носит название - Санкт-Петербургская губерния",
+    url: "https://ru.wikipedia.org/wiki/%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3%D1%81%D0%BA%D0%B0%D1%8F_%D0%B3%D1%83%D0%B1%D0%B5%D1%80%D0%BD%D0%B8%D1%8F",
+  },
+  "RU-VLG": {
+    title: "Вологодская область",
+  },
+  "RU-KOS": {
+    title: "Костромская область",
+  },
+  "RU-PSK": {
+    title: "Псковская область",
+  },
+  "RU-YAN": {
+    title: "Ямало-Ненецкий АО",
+  },
+  "RU-CHU": {
+    title: "Чукотский АО",
+  },
+  "RU-YEV": {
+    title: "Еврейская автономская область",
+  },
+  "RU-TY": {
+    title: "Республика Тыва",
+  },
+  "RU-SAK": {
+    title: "Сахалинская область",
+  },
+  "RU-AMU": {
+    title: "Амурская область",
+  },
+  "RU-BU": {
+    title: "Республика Бурятия",
+    info: "Во второй половине XIX века Бурятия называлась Верхнеудинским уездом (округом) и входила в состав Забайкальской области Российской империи.  До 1851 года являлась частью Иркутской губернии",
+    url: "https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B1%D0%B0%D0%B9%D0%BA%D0%B0%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F_%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BF%D1%80%D0%B0%D0%B2%D0%BA%D0%B0",
+  },
+  "RU-KK": {
+    title: "Республика Хакасия",
+  },
+  "RU-KEM": {
+    title: "Кемеровская область",
+  },
+  "RU-ALT": {
+    title: "Алтайский край",
+  },
+  "RU-DA": {
+    title: "Республика Дагестан",
+  },
+  "RU-KB": {
+    title: "Кабардино-Балкарская республика",
+  },
+  "RU-KC": {
+    title: "Карачаевая-Черкесская республика",
+  },
+  "RU-KDA": {
+    title: "Краснодарский край",
+  },
+  "RU-ROS": {
+    title: "Ростовская область",
+  },
+  "RU-SAM": {
+    title: "Самарская область",
+  },
+  "RU-TA": {
+    title: "Республика Татарстан",
+    info: "В XIX веке носит название - Казанская губерния",
+    url: "https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B1%D0%B0%D0%B9%D0%BA%D0%B0%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F_%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BF%D1%80%D0%B0%D0%B2%D0%BA%D0%B0",
+  },
+  "RU-ME": {
+    title: "Республика Марий Эл",
+  },
+  "RU-CU": {
+    title: "Чувашская республика",
+  },
+  "RU-NIZ": {
+    title: "Нижегородская край",
+  },
+  "RU-VLA": {
+    title: "Владимировская область",
+  },
+  "RU-MOS": {
+    title: "Московская область",
+  },
+  "RU-KLU": {
+    title: "Калужская область",
+  },
+  "RU-BEL": {
+    title: "Белгородская область",
+  },
+  "RU-ZAB": {
+    title: "Забайкальский край",
+    info: "Во второй половине XIX века -  Нерчинский уезд (округ) Забайкальской области Российской империи.  До 1851 года являлась частью Иркутской губернии",
+    url: "https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B1%D0%B0%D0%B9%D0%BA%D0%B0%D0%BB%D1%8C%D1%81%D0%BA%D0%B0%D1%8F_%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F_%D1%81%D0%BF%D1%80%D0%B0%D0%B2%D0%BA%D0%B0",
+  },
+  "RU-PRI": {
+    title: "Приморский край",
+  },
+  "RU-KAM": {
+    title: "Камачатский край",
+  },
+  "RU-MAG": {
+    title: "Магаданская область",
+  },
+  "RU-SA": {
+    title: "Республика Саха",
+  },
+  "RU-KYA": {
+    title: "Красноярский край",
+  },
+  "RU-ORE": {
+    title: "Оренбургская область",
+  },
+  "RU-SAR": {
+    title: "Саратовская область",
+  },
+  "RU-VGG": {
+    title: "Волгоградская область",
+  },
+  "RU-VOR": {
+    title: "Ставропольский край",
+  },
+  "RU-SMO": {
+    title: "Смоленская область",
+  },
+  "RU-TVE": {
+    title: "Тверская область",
+  },
+  "RU-PER": {
+    title: "Пермская область",
+  },
+  "RU-KHM": {
+    title: "Ханты-Мансийский АО",
+  },
+  "RU-KHM": {
+    title: "Ханты-Мансийский АО",
+  },
+  "RU-TOM": {
+    title: "Томская область",
+  },
+  "RU-IRK": {
+    title: "Иркутская область",
+    info: "В XIX веке носит название - Иркутская губерния. До 1851 года губерния включала в свой состав Забайкальскую область (современные Республику Бурятия и Забакальский край)",
+    url: "https://ru.wikipedia.org/wiki/%D0%98%D1%80%D0%BA%D1%83%D1%82%D1%81%D0%BA%D0%B0%D1%8F_%D0%B3%D1%83%D0%B1%D0%B5%D1%80%D0%BD%D0%B8%D1%8F#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F",
+  },
+  "RU-NEN": {
+    title: "Ненецскй АО",
+  },
+  "RU-STA": {
+    title: "Ставропольский край",
+  },
+  "RU-TUL": {
+    title: "Тульская область",
+  },
+}
+// var idAarr2 = new Array(
+//   ["RU-MOW", "Москва", ""],
+//   ["RU-CHE", "Челябинская область", ""],
+//   ["RU-ORL", "Орловская область"],
+//   ["RU-OMS", "Омская область", ""],
+//   ["RU-LIP", "Липецкая область", ""],
+//   ["RU-KRS", "Курская область", ""],
+//   ["RU-RYA", "Рязанская область", ""],
+//   ["RU-BRY", "Брянская область", ""],
+//   ["RU-KIR", "Кировская область", ""],
+//   ["RU-ARK", "Архангельская область", ""],
+//   ["RU-MUR", "Мурманская область", ""],
+//   ["RU-SPE", "Санкт-Петербург", ""],
+//   ["RU-YAR", "Ярославская область", ""],
+//   ["RU-ULY", "Ульяновская область", ""],
+//   ["RU-NVS", "Новосибирская область", ""],
+//   ["RU-TYU", "Тюменская область", ""],
+//   ["RU-SVE", "Свердловская область", ""],
+//   ["RU-NGR", "Новгородская область", ""],
+//   ["RU-KGN", "Курганская область", ""],
+//   ["RU-KGD", "Калининградская область", ""],
+//   ["RU-IVA", "Ивановская область", ""],
+//   ["RU-AST", "Астраханская область", ""],
+//   ["RU-KHA", "Хабаровский край", ""],
+//   ["RU-CE", "Чеченская республика", ""],
+//   ["RU-UD", "Удмуртская республика", ""],
+//   ["RU-SE", "Республика Северная Осетия", ""],
+//   ["RU-MO", "Республика Мордовия", ""],
+//   ["RU-KR", "Республика  Карелия", ""],
+//   ["RU-KL", "Республика  Калмыкия", ""],
+//   ["RU-IN", "Республика  Ингушетия", ""],
+//   ["RU-AL", "Республика Алтай", ""],
+//   ["RU-BA", "Республика Башкортостан", ""],
+//   ["RU-AD", "Республика Адыгея", ""],
+//   ["RU-CR", "Республика Крым", ""],
+//   ["RU-SEV", "Севастополь", ""],
+//   ["RU-KO", "Республика Коми", ""],
+//   ["RU-PNZ", "Пензенская область", ""],
+//   ["RU-TAM", "Тамбовская область", ""],
+//   ["RU-LEN", "Ленинградская область", ""],
+//   ["RU-VLG", "Вологодская область", ""],
+//   ["RU-KOS", "Костромская область", ""],
+//   ["RU-PSK", "Псковская область", ""],
+//   ["RU-YAN", "Ямало-Ненецкий АО", ""],
+//   ["RU-CHU", "Чукотский АО", ""],
+//   ["RU-YEV", "Еврейская автономская область", ""],
+//   ["RU-TY", "Республика Тыва", ""],
+//   ["RU-SAK", "Сахалинская область", ""],
+//   ["RU-AMU", "Амурская область", ""],
+//   ["RU-BU", "Республика Бурятия", ""],
+//   ["RU-KK", "Республика Хакасия", ""],
+//   ["RU-KEM", "Кемеровская область", ""],
+//   ["RU-ALT", "Алтайский край", ""],
+//   ["RU-DA", "Республика Дагестан", ""],
+//   ["RU-KB", "Кабардино-Балкарская республика", ""],
+//   ["RU-KC", "Карачаевая-Черкесская республика", ""],
+//   ["RU-KDA", "Краснодарский край", ""],
+//   ["RU-ROS", "Ростовская область", ""],
+//   ["RU-SAM", "Самарская область", ""],
+//   ["RU-TA", "Республика Татарстан", ""],
+//   ["RU-ME", "Республика Марий Эл", ""],
+//   ["RU-CU", "Чувашская республика", ""],
+//   ["RU-NIZ", "Нижегородская край", ""],
+//   ["RU-VLA", "Владимировская область", ""],
+//   ["RU-MOS", "Московская область", ""],
+//   ["RU-KLU", "Калужская область", ""],
+//   ["RU-BEL", "Белгородская область", ""],
+//   ["RU-ZAB", "Забайкальский край", ""],
+//   ["RU-PRI", "Приморский край", ""],
+//   ["RU-KAM", "Камачатский край", ""],
+//   ["RU-MAG", "Магаданская область", ""],
+//   ["RU-SA", "Республика Саха", ""],
+//   ["RU-KYA", "Красноярский край", ""],
+//   ["RU-ORE", "Оренбургская область", ""],
+//   ["RU-SAR", "Саратовская область", ""],
+//   ["RU-VGG", "Волгоградская область", ""],
+//   ["RU-VOR", "Ставропольский край", ""],
+//   ["RU-SMO", "Смоленская область", ""],
+//   ["RU-TVE", "Тверская область", ""],
+//   ["RU-PER", "Пермская область", ""],
+//   ["RU-KHM", "Ханты-Мансийский АО", ""],
+//   ["RU-KHM", "Ханты-Мансийский АО", ""],
+//   ["RU-TOM", "Томская область", ""],
+//   ["RU-IRK", "Иркутская область", ""],
+//   ["RU-NEN", "Ненецскй АО", ""],
+//   ["RU-STA", "Ставропольский край", ""],
+//   ["RU-TUL", "Тульская область", "tulskaya_flag.png"]
+// )
 
 var mapOptions = {
     events: {
@@ -202,7 +385,7 @@ var mapOptions = {
   },
   svgPanZoom,
   currentZoom = 0,
-  zoomFactor = 3,
+  zoomFactor = 4,
   localCursor,
   currentCityId = null,
   mapBacklightColor = "#f5d78c", //"#00fff8",//"#00d7ff"//"#00ff82",
@@ -210,6 +393,7 @@ var mapOptions = {
   mapBackgroundColor = "rgba(0,0,0,0.2)",
   areaList = [],
   countdown,
+  countdown1,
   mapMarkerColor = {
     normal: "red",
     active: "blue",
@@ -241,6 +425,7 @@ var mapOptions = {
   },
   indicatorWindow = {
     show: false,
+    isDelay: false,
     position: {
       x: 0,
       y: 0,
@@ -255,6 +440,8 @@ var mapOptions = {
       id: "ulanude",
       name: "г. Улан-Удэ",
       title: "г. Верхнеудинск",
+      info: "Улан-Удэ как столица Республики Бурятия особо чтит первого бурятского учёного. В городе Доржи Базарову установлены памятники, его наследие и труды бережно сохранены для будущих поколений.  Именно отсюда мы начнём путешествие по жизненному пути нашего  земляка",
+      url: "#aaaa",
       cx: 610,
       cy: 480,
       next: ["dodo"],
@@ -331,14 +518,26 @@ $("path").mousemove(function (e) {
 $("path").hover(
   function (e) {
     // $('path').css('fill', '#fff')
-    hideIndicator()
+    if (!indicatorWindow.isDelay) hideIndicator()
+    else {
+      clearTimeout(countdown1)
+      countdown1 = setTimeout(function () {
+        indicatorWindow.isDelay = false
+      }, 500)
+      return false
+    }
     var id = $(this).attr("id").toUpperCase()
     clearTimeout(countdown)
-
-    if ($(this).attr("name")) {
-      var name = $(this).attr("name")
+    if (idAarr[id]) {
+      // if ($(this).attr("name")) {
+      // var name = $(this).attr("name")
       countdown = setTimeout(function () {
-        showIndicator(e, name)
+        //showIndicator(name)
+        var txt = `<h4>${idAarr[id].title}</h4>`
+        if (idAarr[id].info) txt += `<p>${idAarr[id].info}</p>`
+        if (idAarr[id].url)
+          txt += `<div style="width: 100%; text-align: right"><a class="button-62" role="button" href="${idAarr[id].url}" target="_blank">Подробнее..</a></div>`
+        showIndicator(txt,  indicatorWindow.position.x, indicatorWindow.position.y)
       }, 1000)
     }
 
@@ -371,20 +570,23 @@ $("path").hover(
   }
 )
 
-function showIndicator(e, htmlText) {
+function showIndicator(htmlText, x, y, isDelay = false) {
+  indicatorWindow.isDelay = isDelay
   if (indicatorWindow.show) hideIndicator()
   clearTimeout(countdown)
   $("<div>" + htmlText + "</div>").appendTo(".indicator")
   $(".indicator")
     .css({
-      top: indicatorWindow.position.y + indicatorWindow.offset.y,
-      left: indicatorWindow.position.x + indicatorWindow.offset.x,
+      top: y + indicatorWindow.offset.y,
+      left: x + indicatorWindow.offset.x,
     })
     .show()
   indicatorWindow.show = true
 }
 
 function hideIndicator() {
+  if (indicatorWindow.show == false) return false
+
   indicatorWindow.show = false
   $(".indicator").html("")
   $(".indicator").hide()
@@ -393,16 +595,17 @@ function hideIndicator() {
 $("path").each(function () {
   var regId = $(this).attr("id")
   var flag = ""
-  var name = ""
-  for (var j = 0; j < idAarr2.length; j++) {
-    if (regId == idAarr2[j][0]) {
-      name = idAarr2[j][1]
-      flag = "flags/" + idAarr2[j][2]
+  var name = idAarr[regId].title
+  $(this).attr("name", name)
+  // for (var j = 0; j < idAarr2.length; j++) {
+  //   if (regId == idAarr2[j][0]) {
+  //     name = idAarr2[j][1]
+  //     flag = "flags/" + idAarr2[j][2]
 
-      $(this).attr("name", name)
-      $(this).attr("flag", flag)
-    }
-  }
+  //     $(this).attr("name", name)
+  //     $(this).attr("flag", flag)
+  //   }
+  // }
 
   // var regIdDiv =
   //   '<div class="reg" >' +
@@ -478,16 +681,25 @@ function areaHighlight(color = mapBacklightColor) {
   // }
 }
 
-function cityMarkerActivate(id, e, m) {
-  $("#" + id).attr("r", m.active)
-  $("#" + id).attr("stroke-width", m.strokeActive)
+function showCityPointInfo(id) {
+  var elem = document.getElementById(id),
+      rect = elem.getBoundingClientRect();  
+  console.log(rect)
   var city = getCityPoint(id)
   if (city) {
-    //areaHighlight(city.area, mapBacklightColor)
-    var thtml = `<p>Место: ${city.name}</p>`
+    var thtml = `<h4>Место: ${city.name}</h4>`
     if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
-    showIndicator(e, thtml)
+    if (city.info) thtml += `<p>${city.info}</p>`
+    if (city.url)
+      thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button" href="${city.url}" target="_blank">Подробнее..</a></div>`
+    showIndicator(thtml, rect.x, rect.y, true)
   }
+}
+
+function cityMarkerActivate(id, m) {
+  $("#" + id).attr("r", m.active)
+  $("#" + id).attr("stroke-width", m.strokeActive)
+  showCityPointInfo(id)
 }
 
 function cityMarkerDeactivate(id, e, m) {
@@ -524,7 +736,7 @@ function changeMapMarkers(m, cls = ".circle5") {
 
   $(cls).hover(
     function (e) {
-      cityMarkerActivate($(this).attr("id"), e, m)
+      cityMarkerActivate($(this).attr("id"), m)
     },
     function (e) {
       cityMarkerDeactivate($(this).attr("id"), e, m)
@@ -584,6 +796,10 @@ function initMap() {
   changeMapMarkers(mapMarkerNormal)
   $(".circle5").click(clickByPoint)
 
+  $("#svg2").click(function () {
+    hideIndicator()
+  })
+
   $("#svg2").dblclick(function () {
     zoom(0)
   })
@@ -622,6 +838,7 @@ function drawLine(sId, fId) {
 function clickByPoint(event) {
   var m1,
     city = getCityPoint(event.currentTarget.id)
+  indicatorWindow.isDelay = false
   areaList = [city.area]
   if (city.zoom) m1 = mapMarkerInZoom
   else m1 = mapMarkerNormal
@@ -657,18 +874,10 @@ function clickByPoint(event) {
   // areaHighlight(currentCityId)
   // if (getCityPoint(currentCityId))
   //   areaHighlight(getCityPoint(currentCityId).next[0])
-
+  showCityPointInfo(currentCityId)
   lastCityPoint = city
 }
 
 $(document).ready(function () {
   initMap()
-  // $('.circle5').on('mouseover', function () {
-  //   $(this).attr('r', '10')
-  //   $(this).attr('stroke-width', '5')
-  // })
-  // $('.circle5').on('mouseleave', function () {
-  //   $(this).attr('r', '5')
-  //   $(this).attr('stroke-width', '3')
-  // })
 })
