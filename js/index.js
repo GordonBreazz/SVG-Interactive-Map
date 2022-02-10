@@ -268,94 +268,6 @@ var idAarr = {
     title: "Тульская область",
   },
 }
-// var idAarr2 = new Array(
-//   ["RU-MOW", "Москва", ""],
-//   ["RU-CHE", "Челябинская область", ""],
-//   ["RU-ORL", "Орловская область"],
-//   ["RU-OMS", "Омская область", ""],
-//   ["RU-LIP", "Липецкая область", ""],
-//   ["RU-KRS", "Курская область", ""],
-//   ["RU-RYA", "Рязанская область", ""],
-//   ["RU-BRY", "Брянская область", ""],
-//   ["RU-KIR", "Кировская область", ""],
-//   ["RU-ARK", "Архангельская область", ""],
-//   ["RU-MUR", "Мурманская область", ""],
-//   ["RU-SPE", "Санкт-Петербург", ""],
-//   ["RU-YAR", "Ярославская область", ""],
-//   ["RU-ULY", "Ульяновская область", ""],
-//   ["RU-NVS", "Новосибирская область", ""],
-//   ["RU-TYU", "Тюменская область", ""],
-//   ["RU-SVE", "Свердловская область", ""],
-//   ["RU-NGR", "Новгородская область", ""],
-//   ["RU-KGN", "Курганская область", ""],
-//   ["RU-KGD", "Калининградская область", ""],
-//   ["RU-IVA", "Ивановская область", ""],
-//   ["RU-AST", "Астраханская область", ""],
-//   ["RU-KHA", "Хабаровский край", ""],
-//   ["RU-CE", "Чеченская республика", ""],
-//   ["RU-UD", "Удмуртская республика", ""],
-//   ["RU-SE", "Республика Северная Осетия", ""],
-//   ["RU-MO", "Республика Мордовия", ""],
-//   ["RU-KR", "Республика  Карелия", ""],
-//   ["RU-KL", "Республика  Калмыкия", ""],
-//   ["RU-IN", "Республика  Ингушетия", ""],
-//   ["RU-AL", "Республика Алтай", ""],
-//   ["RU-BA", "Республика Башкортостан", ""],
-//   ["RU-AD", "Республика Адыгея", ""],
-//   ["RU-CR", "Республика Крым", ""],
-//   ["RU-SEV", "Севастополь", ""],
-//   ["RU-KO", "Республика Коми", ""],
-//   ["RU-PNZ", "Пензенская область", ""],
-//   ["RU-TAM", "Тамбовская область", ""],
-//   ["RU-LEN", "Ленинградская область", ""],
-//   ["RU-VLG", "Вологодская область", ""],
-//   ["RU-KOS", "Костромская область", ""],
-//   ["RU-PSK", "Псковская область", ""],
-//   ["RU-YAN", "Ямало-Ненецкий АО", ""],
-//   ["RU-CHU", "Чукотский АО", ""],
-//   ["RU-YEV", "Еврейская автономская область", ""],
-//   ["RU-TY", "Республика Тыва", ""],
-//   ["RU-SAK", "Сахалинская область", ""],
-//   ["RU-AMU", "Амурская область", ""],
-//   ["RU-BU", "Республика Бурятия", ""],
-//   ["RU-KK", "Республика Хакасия", ""],
-//   ["RU-KEM", "Кемеровская область", ""],
-//   ["RU-ALT", "Алтайский край", ""],
-//   ["RU-DA", "Республика Дагестан", ""],
-//   ["RU-KB", "Кабардино-Балкарская республика", ""],
-//   ["RU-KC", "Карачаевая-Черкесская республика", ""],
-//   ["RU-KDA", "Краснодарский край", ""],
-//   ["RU-ROS", "Ростовская область", ""],
-//   ["RU-SAM", "Самарская область", ""],
-//   ["RU-TA", "Республика Татарстан", ""],
-//   ["RU-ME", "Республика Марий Эл", ""],
-//   ["RU-CU", "Чувашская республика", ""],
-//   ["RU-NIZ", "Нижегородская край", ""],
-//   ["RU-VLA", "Владимировская область", ""],
-//   ["RU-MOS", "Московская область", ""],
-//   ["RU-KLU", "Калужская область", ""],
-//   ["RU-BEL", "Белгородская область", ""],
-//   ["RU-ZAB", "Забайкальский край", ""],
-//   ["RU-PRI", "Приморский край", ""],
-//   ["RU-KAM", "Камачатский край", ""],
-//   ["RU-MAG", "Магаданская область", ""],
-//   ["RU-SA", "Республика Саха", ""],
-//   ["RU-KYA", "Красноярский край", ""],
-//   ["RU-ORE", "Оренбургская область", ""],
-//   ["RU-SAR", "Саратовская область", ""],
-//   ["RU-VGG", "Волгоградская область", ""],
-//   ["RU-VOR", "Ставропольский край", ""],
-//   ["RU-SMO", "Смоленская область", ""],
-//   ["RU-TVE", "Тверская область", ""],
-//   ["RU-PER", "Пермская область", ""],
-//   ["RU-KHM", "Ханты-Мансийский АО", ""],
-//   ["RU-KHM", "Ханты-Мансийский АО", ""],
-//   ["RU-TOM", "Томская область", ""],
-//   ["RU-IRK", "Иркутская область", ""],
-//   ["RU-NEN", "Ненецскй АО", ""],
-//   ["RU-STA", "Ставропольский край", ""],
-//   ["RU-TUL", "Тульская область", "tulskaya_flag.png"]
-// )
 
 var mapOptions = {
     events: {
@@ -386,8 +298,10 @@ var mapOptions = {
   svgPanZoom,
   currentZoom = 0,
   zoomFactor = 4,
+  iframeTarget = "ifrm",
   localCursor,
   currentCityId = null,
+  lastAreaId = null,
   mapBacklightColor = "#f5d78c", //"#00fff8",//"#00d7ff"//"#00ff82",
   mapHoverRegionColor = "#f6e72d",
   mapBackgroundColor = "rgba(0,0,0,0.2)",
@@ -431,17 +345,20 @@ var mapOptions = {
       y: 0,
     },
     offset: {
-      x: 9,
-      y: 9,
+      x: 20,
+      y: 20,
+      width: 0,
+      height: 0,
     },
   },
   cityPoints = [
     {
       id: "ulanude",
       name: "г. Улан-Удэ",
+      date: "Настоящее время",
       title: "г. Верхнеудинск",
-      info: "Улан-Удэ как столица Республики Бурятия особо чтит первого бурятского учёного. В городе Доржи Базарову установлены памятники, его наследие и труды бережно сохранены для будущих поколений.  Именно отсюда мы начнём путешествие по жизненному пути нашего  земляка",
-      url: "#aaaa",
+      info: "Улан-Удэ столица Республики Бурятия особо чтит первого бурятского учёного. В городе Доржи Базарову установлены памятники, его наследие и труды бережно сохранены для будущих поколений.  Именно отсюда мы начнём путешествие по жизненному пути нашего  земляка",
+      url: "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json",
       cx: 610,
       cy: 480,
       next: ["dodo"],
@@ -452,6 +369,9 @@ var mapOptions = {
       id: "dodo",
       name: "улус Додо-Ичётуй",
       title: "улус Кутетуевский",
+      date: "1822 год",
+      info: "Место рождения Доржи Банзарова",
+      url: "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json&start_at_slide=2",
       cx: 575,
       cy: 505,
       next: ["haracai"],
@@ -462,6 +382,9 @@ var mapOptions = {
       id: "haracai",
       name: "улус Харацай",
       title: "станица Атамано-Николаевская",
+      date: "1830 - 1833 год",
+      info: "учёба в Атамано-Николаевское училище",
+      url: "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json&start_at_slide=3",
       cx: 565,
       cy: 500,
       next: ["kyahta"],
@@ -472,6 +395,9 @@ var mapOptions = {
       id: "kyahta",
       name: "г. Кяхта",
       title: "г. Троицкосавск",
+      date: "1833 - 1836 год",
+      info: "Военное училище ",
+      url: "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json&start_at_slide=4",
       cx: 585,
       cy: 515,
       next: ["kazan"],
@@ -482,6 +408,9 @@ var mapOptions = {
       id: "kazan",
       name: "г. Казань",
       title: null,
+      date: "1836 - 1846 год",
+      info: "Студенческие годы ",
+      url: "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json&start_at_slide=5",
       cx: 200,
       cy: 330,
       next: ["piter", "irkutsk"],
@@ -492,6 +421,9 @@ var mapOptions = {
       id: "piter",
       name: "г. Санкт-Петербург",
       title: null,
+      date: "1847 - 1849 год",
+      info: "Научная работа",
+      url: "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json&start_at_slide=5",
       cx: 133,
       cy: 185,
       next: ["kazan"],
@@ -502,6 +434,9 @@ var mapOptions = {
       id: "irkutsk",
       name: "г. Иркутск",
       title: null,
+      date: "1850 - 1855 год",
+      info: "чиновник по особым поручениям",
+      url: "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json&start_at_slide=5",
       cx: 568,
       cy: 487,
       next: null,
@@ -514,6 +449,14 @@ $("path").mousemove(function (e) {
   indicatorWindow.position.x = e.pageX
   indicatorWindow.position.y = e.pageY
 })
+
+function showAreaInfo(area) {
+  var txt = `<h4>${area.title}</h4>`
+  if (area.info) txt += `<p>${area.info}</p>`
+  if (area.url)
+    txt += `<div style="width: 100%; text-align: right"><a class="button-62" role="button" href="${area.url}" target="_blank">Подробнее..</a></div>`
+  showIndicator(txt, indicatorWindow.position.x, indicatorWindow.position.y)
+}
 
 $("path").hover(
   function (e) {
@@ -529,15 +472,9 @@ $("path").hover(
     var id = $(this).attr("id").toUpperCase()
     clearTimeout(countdown)
     if (idAarr[id]) {
-      // if ($(this).attr("name")) {
-      // var name = $(this).attr("name")
+      lastAreaId = id 
       countdown = setTimeout(function () {
-        //showIndicator(name)
-        var txt = `<h4>${idAarr[id].title}</h4>`
-        if (idAarr[id].info) txt += `<p>${idAarr[id].info}</p>`
-        if (idAarr[id].url)
-          txt += `<div style="width: 100%; text-align: right"><a class="button-62" role="button" href="${idAarr[id].url}" target="_blank">Подробнее..</a></div>`
-        showIndicator(txt,  indicatorWindow.position.x, indicatorWindow.position.y)
+        showAreaInfo(idAarr[id])
       }, 1000)
     }
 
@@ -577,8 +514,8 @@ function showIndicator(htmlText, x, y, isDelay = false) {
   $("<div>" + htmlText + "</div>").appendTo(".indicator")
   $(".indicator")
     .css({
-      top: y + indicatorWindow.offset.y,
-      left: x + indicatorWindow.offset.x,
+      top: y + indicatorWindow.offset.height, //indicatorWindow.offset.y,
+      left: x + indicatorWindow.offset.width, //indicatorWindow.offset.x,
     })
     .show()
   indicatorWindow.show = true
@@ -623,37 +560,6 @@ $("path").each(function () {
   // idAarr2.push(idArrMin);
 })
 
-// for (var j = 0; j < idAarr2.length; j++) {
-//   if (regId == idAarr2[j][0]) {
-//     name = cyr2latChars[j][1];
-
-//   }
-// }
-
-function naming() {}
-
-//revertFill();
-
-// $('.reg').hover(
-//   function (e) {
-//     var id = $(this)
-//       .find('span')
-//       .text()
-
-//     idHover = '#' + id
-
-//     $(idHover).css('fill', mapBacklightColor)
-//     // $('path').not(this).css('fill','rgba(0,0,0,0.5)');
-//     // $('.indicator').css({'top':e.pageY,'left':e.pageX+30}).show();
-//   },
-//   function () {
-//     hideIndicator()
-//     $('path').css('fill', mapBackgroundColor)
-//   }
-// )
-
-//} // revertFill
-
 function getCityPoint(id) {
   return cityPoints.find(function (elem) {
     if (elem.id == id) return elem
@@ -673,33 +579,33 @@ function setAriasList(id) {
 
 function areaHighlight(color = mapBacklightColor) {
   for (let id of areaList) $("#" + id).css("fill", color)
-  // var tmp = getCityPoint(id)
-  // if (tmp) {
-  //   if ($('#' + tmp.area).length > 0) {
-  //     $('#' + tmp.area).css('fill', color)
-  //   }
-  // }
 }
 
 function showCityPointInfo(id) {
+  //if (indicatorWindow.show) return false
   var elem = document.getElementById(id),
-      rect = elem.getBoundingClientRect();  
-  console.log(rect)
+    rect = elem.getBoundingClientRect()
+  indicatorWindow.offset.width = rect.width
+  indicatorWindow.offset.height = rect.height
   var city = getCityPoint(id)
   if (city) {
-    var thtml = `<h4>Место: ${city.name}</h4>`
+    var thtml = ''
+    if  (city.date) thtml += `<h3>${city.date}</h3>`
+    thtml += `<h4>Место: ${city.name}</h4>`
     if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
     if (city.info) thtml += `<p>${city.info}</p>`
     if (city.url)
-      thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button" href="${city.url}" target="_blank">Подробнее..</a></div>`
+      thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button" href="${city.url}" target="${iframeTarget}">Подробнее..</a></div>`
     showIndicator(thtml, rect.x, rect.y, true)
   }
 }
 
 function cityMarkerActivate(id, m) {
-  $("#" + id).attr("r", m.active)
-  $("#" + id).attr("stroke-width", m.strokeActive)
-  showCityPointInfo(id)
+  if (currentCityId != lastCityPoint) {
+    $("#" + id).attr("r", m.active)
+    $("#" + id).attr("stroke-width", m.strokeActive)
+    showCityPointInfo(id)
+  }
 }
 
 function cityMarkerDeactivate(id, e, m) {
@@ -721,7 +627,7 @@ function pointHighlighter() {
     $("#" + currentCityId).attr("r", m.active)
     $("#" + currentCityId).attr("stroke-width", m.strokeActive)
   }
-  //console.log(lastCityPoint.id)
+
   if (lastCityPoint.id && lastCityPoint.id != currentCityId) {
     $("#" + lastCityPoint.id).attr("r", m.normal)
     $("#" + lastCityPoint.id).attr("stroke-width", m.strokeNormal)
@@ -751,24 +657,6 @@ function initMap() {
     nextList = val.next
     var svg = document.getElementById("svg2")
 
-    // var pt = svg.createSVGPoint()
-
-    // // Get point in global SVG space
-    // function cursorPoint(evt) {
-    //   pt.x = evt.clientX
-    //   pt.y = evt.clientY
-    //   return pt.matrixTransform(svg.getScreenCTM().inverse())
-    // }
-
-    // svg.addEventListener(
-    //   "mousemove",
-    //   function (evt) {
-    //     localCursor = cursorPoint(evt)
-    //     // Use loc.x and loc.y here
-    //   },
-    //   false
-    // )
-
     if (nextList)
       $.each(nextList, function (ind, v) {
         var city = getCityPoint(v)
@@ -797,7 +685,8 @@ function initMap() {
   $(".circle5").click(clickByPoint)
 
   $("#svg2").click(function () {
-    hideIndicator()
+    if (indicatorWindow.show) hideIndicator()
+      else showAreaInfo(idAarr[lastAreaId])
   })
 
   $("#svg2").dblclick(function () {
@@ -863,18 +752,18 @@ function clickByPoint(event) {
 
   if (city.zoom && currentZoom == 0) {
     zoom(zoomFactor)
-    svgPanZoom.setCenter(city.cx, city.cy)
+    //  svgPanZoom.setCenter(city.cx, city.cy)
   }
 
   if (!city.zoom && currentZoom > 0) {
     zoom(0)
   }
-  //svgPanZoom.setCenter(city.cx, city.cy)
+  svgPanZoom.setCenter(city.cx, city.cy)
   pointHighlighter()
-  // areaHighlight(currentCityId)
-  // if (getCityPoint(currentCityId))
-  //   areaHighlight(getCityPoint(currentCityId).next[0])
-  showCityPointInfo(currentCityId)
+  setTimeout(function () {
+    showCityPointInfo(currentCityId)
+  }, 300)
+  //
   lastCityPoint = city
 }
 
