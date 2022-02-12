@@ -351,14 +351,44 @@ var mapOptions = {
       height: 0,
     },
   },
-  cityPoints = [
-    {
-      id: "ulanude",
-      name: "г. Улан-Удэ",
+  timeLine = [
+     {city: "ulanude",
       date: "Настоящее время",
       title: "г. Верхнеудинск",
       info: "Улан-Удэ столица Республики Бурятия особо чтит первого бурятского учёного. В городе Доржи Базарову установлены памятники, его наследие и труды бережно сохранены для будущих поколений.  Именно отсюда мы начнём путешествие по жизненному пути нашего  земляка",
       url: "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json",
+    },
+     {city: "dodo",
+     date: "1822 год",
+     info: "Место рождения Доржи Банзарова",
+     url: "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json&start_at_slide=2",
+
+    },
+     {city: "haracai",
+
+    },
+     {city: "kyahta",
+
+    },
+     {city: "kazan",
+
+    },
+     {city: "piter",
+
+    },
+
+     {city: "kazan",
+
+    },
+     {city: "irkutsk",
+
+    },
+
+  ],
+  cityPoints = [
+    {
+      id: "ulanude",
+      name: "г. Улан-Удэ",
       cx: 610,
       cy: 480,
       next: ["dodo"],
@@ -472,7 +502,7 @@ $("path").hover(
     var id = $(this).attr("id").toUpperCase()
     clearTimeout(countdown)
     if (idAarr[id]) {
-      lastAreaId = id 
+      lastAreaId = id
       countdown = setTimeout(function () {
         showAreaInfo(idAarr[id])
       }, 1000)
@@ -589,8 +619,8 @@ function showCityPointInfo(id) {
   indicatorWindow.offset.height = rect.height
   var city = getCityPoint(id)
   if (city) {
-    var thtml = ''
-    if  (city.date) thtml += `<h3>${city.date}</h3>`
+    var thtml = ""
+    if (city.date) thtml += `<h3>${city.date}</h3>`
     thtml += `<h4>Место: ${city.name}</h4>`
     if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
     if (city.info) thtml += `<p>${city.info}</p>`
@@ -686,7 +716,7 @@ function initMap() {
 
   $("#svg2").click(function () {
     if (indicatorWindow.show) hideIndicator()
-      else showAreaInfo(idAarr[lastAreaId])
+    else showAreaInfo(idAarr[lastAreaId])
   })
 
   $("#svg2").dblclick(function () {
