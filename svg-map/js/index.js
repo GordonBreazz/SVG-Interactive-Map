@@ -258,8 +258,16 @@ height="620px" viewBox="0 0 1090 620" xml:space="preserve" xmlns:xml="http://www
   stroke="#888888" stroke-width="0.5" id="RU-IRK" style=""></path>
 </svg>`,
   indicator = '<div class="indicator"></div>',
-  mapId = "#mapsvg",
-  idAarr = {
+  iframeTarget = "ifrm",
+  iframeURL =
+    "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json",
+  iframeContanier = `
+  <div id="iframe-contanier">
+    <iframe src="${iframeURL}" frameborder="0" width="100%" height="800" name="ifrm" id="strotymap"></iframe> 
+  </div>
+  `
+;(mapId = "#mapsvg"),
+  (idAarr = {
     "RU-MOW": {
       title: "Москва",
     },
@@ -528,7 +536,7 @@ height="620px" viewBox="0 0 1090 620" xml:space="preserve" xmlns:xml="http://www
     "RU-TUL": {
       title: "Тульская область",
     },
-  }
+  })
 
 let mapOptions = {
     events: {
@@ -559,9 +567,6 @@ let mapOptions = {
   svgPanZoom,
   currentZoom = 0,
   zoomFactor = 4,
-  iframeTarget = "ifrm",
-  iframeURL =
-    "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json",
   isAutoShowIndicator = true,
   localCursor,
   currentCityId = null,
@@ -1059,7 +1064,7 @@ function clickByButton(url) {
   window.open(url, iframeTarget)
   $("html, body").animate(
     {
-      scrollTop: $("#aaaaa").offset().top,
+      scrollTop: $("#iframe-contanier").offset().top,
     },
     500,
     "linear"
@@ -1070,6 +1075,7 @@ function clickByButton(url) {
 function addMapSVG() {
   $(mapId).append(svgData)
   $(mapId).append(indicator)
+  $(mapId).append(iframeContanier)
 }
 
 $(document).ready(function () {
