@@ -1,0 +1,27 @@
+{
+  "name": "svg-interactive-map",
+  "version": "1.0.0",
+  "description": "Interactive SVG map",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "minify index.js --out-file index.min.js --mangle.keepClassName"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GordonBreazz/SVG-Interactive-Map.git"
+  },
+  "keywords": [
+    "SVG",
+    "js"
+  ],
+  "author": "Gordon Breazz",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/GordonBreazz/SVG-Interactive-Map/issues"
+  },
+  "homepage": "https://github.com/GordonBreazz/SVG-Interactive-Map#readme",
+  "devDependencies": {
+    "babel-minify": "^0.2.0"
+  }
+}
