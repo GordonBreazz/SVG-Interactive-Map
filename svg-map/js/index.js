@@ -811,8 +811,10 @@ function showCityPointInfo(id) {
     let item = getTimeLineInfo(city.id)
     if (item.date) thtml += `<h4>${item.date}</h4>`
     if (item.info) thtml += `<p>${item.info}</p>`
-    if (item.url)
-      thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button" href="${item.url}" target="${iframeTarget}">Подробнее..</a></div>`
+    if (item.url) {
+      //href="${item.url}" target="${iframeTarget}
+      thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button"  onclick="clickByButton('${item.url}')">Подробнее..</a></div>`
+    }
 
     // for (item of tmp) {
     //   if (c) thtml += "<br><hr><br>"
@@ -877,6 +879,9 @@ function changeMapMarkers(m, cls = ".circle5") {
 }
 /////////////////////////////////////////// Map Initialization
 function initMap() {
+  $(".button-62").click(function () {
+    console.log("button-62")
+  })
   $("path").each(function () {
     let regId = $(this).attr("id"),
       name = idAarr[regId].title
@@ -1038,10 +1043,35 @@ function clickByPoint(event) {
   //
   lastCityPoint = city
 }
+
+function goToByScroll(id) {
+  // Remove "link" from the ID
+  // Scroll
+  $("html,body").animate(
+    {
+      scrollTop: $("#" + id).offset().top,
+    },
+    "slow"
+  )
+}
+
+function clickByButton(url) {
+  window.open(url, iframeTarget)
+  $("html, body").animate(
+    {
+      scrollTop: $("#aaaaa").offset().top,
+    },
+    500,
+    "linear"
+  )
+  hideIndicator()
+}
+
 function addMapSVG() {
   $(mapId).append(svgData)
   $(mapId).append(indicator)
 }
+
 $(document).ready(function () {
   addMapSVG()
   initMap()
