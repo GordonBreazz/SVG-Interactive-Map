@@ -882,7 +882,7 @@ function changeMapMarkers(m, cls = ".circle5") {
   $(".path5").attr("stroke-width", m.lineStrokeWidth)
   $(".path5").attr("stroke-dasharray", m.lineStrokeDasharray)
 }
-/////////////////////////////////////////// Map Initialization
+// Map Initialization
 function initMap() {
   $(".button-62").click(function () {
     console.log("button-62")
