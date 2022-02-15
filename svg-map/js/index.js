@@ -624,9 +624,8 @@ let mapOptions = {
     {
       city: "ulanude",
       date: "Настоящее время",
-      title: "г. Верхнеудинск",
       info: "Улан-Удэ столица Республики Бурятия особо чтит первого бурятского учёного. В городе Доржи Базарову установлены памятники, его наследие и труды бережно сохранены для будущих поколений.  Именно отсюда мы начнём путешествие по жизненному пути нашего  земляка",
-      url: iframeURL,
+      url: iframeURL + "&start_at_slide=1",
     },
     {
       city: "dodo",
@@ -676,12 +675,14 @@ let mapOptions = {
     {
       id: "ulanude",
       name: "г. Улан-Удэ",
+      title: "г. Верхнеудинск",      
       date: "Настоящее время",
       cx: 610,
       cy: 480,
       next: ["dodo"],
       zoom: true,
       area: "RU-BU",
+      moreLink: "https://ru.wikipedia.org/wiki/%D0%A3%D0%BB%D0%B0%D0%BD-%D0%A3%D0%B4%D1%8D#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F"
     },
     {
       id: "dodo",
@@ -804,21 +805,24 @@ function getTimeLineInfo(id) {
 }
 
 function showCityPointInfo(id) {
+  let city = getCityPoint(id)
+  if (!city) return false
   let elem = document.getElementById(id),
     rect = elem.getBoundingClientRect()
   indicatorWindow.offset.width = rect.width
   indicatorWindow.offset.height = rect.height
-  let city = getCityPoint(id)
-  if (city) {
-    let thtml = ""
-    thtml += `<h4>Место: ${city.name}</h4>`
+  let thtml = ""
+
+  if (id == lastCityPoint.id) {    
+    let item = getTimeLineInfo(city.id)  
+    if (item.date) thtml += `<h4>${item.date}, ${city.name}</h4>`
+    //thtml += `<h4>Место: ${city.name}</h4>`
     if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
-    let item = getTimeLineInfo(city.id)
-    if (item.date) thtml += `<h4>${item.date}</h4>`
+    thtml += '<br>'
     if (item.info) thtml += `<p>${item.info}</p>`
     if (item.url) {
       //href="${item.url}" target="${iframeTarget}
-      thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button"  onclick="clickByButton('${item.url}')">Подробнее..</a></div>`
+      thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button"  onclick="clickByButton('${item.url}')">Побробнее..</a><a class="button-62" role="button"  onclick="clickByButton('${item.url}')">Продолжить путешествие</a></div>`
     }
 
     // for (item of tmp) {
@@ -830,8 +834,14 @@ function showCityPointInfo(id) {
     //     thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button" href="${item.url}" target="${iframeTarget}">Подробнее..</a></div>`
     //   c = true
     // }
-    showIndicator(thtml, rect.x, rect.y, true)
+  } else {
+    thtml += `<h4>${city.name}</h4>`
+    //thtml += `<h4>Место: ${city.name}</h4>`
+    if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
+    if (city.moreLink) thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button"  href="${city.moreLink}">История города</a></div>`
   }
+
+  showIndicator(thtml, rect.x, rect.y, true)
 }
 
 function cityMarkerActivate(id, m) {

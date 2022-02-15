@@ -28,6 +28,7 @@ path {
   /* text-transform:capitalize; */
   display: none;
   box-shadow: -10px 17px 26px 5px rgba(0, 0, 0, 0.32);
+  max-width: 400px;
 }
 
 .indicator p {
@@ -70,6 +71,8 @@ path {
   -webkit-user-select: none;
   touch-action: manipulation;
   white-space: nowrap;
+  margin-left: 10px;
+  margin-top: 20px;
 }
 
 .button-62:not([disabled]):focus {
