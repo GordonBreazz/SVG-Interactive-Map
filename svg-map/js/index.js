@@ -571,6 +571,7 @@ let mapOptions = {
   localCursor,
   currentCityId = null,
   lastAreaId = null,
+  nextCityPoint = null,
   mapBacklightColor = "#f5d78c", //"#00fff8",//"#00d7ff"//"#00ff82",
   mapHoverRegionColor = "#f6e72d",
   mapBackgroundColor = "rgba(0,0,0,0.2)",
@@ -675,14 +676,15 @@ let mapOptions = {
     {
       id: "ulanude",
       name: "г. Улан-Удэ",
-      title: "г. Верхнеудинск",      
+      title: "г. Верхнеудинск",
       date: "Настоящее время",
       cx: 610,
       cy: 480,
       next: ["dodo"],
       zoom: true,
       area: "RU-BU",
-      moreLink: "https://ru.wikipedia.org/wiki/%D0%A3%D0%BB%D0%B0%D0%BD-%D0%A3%D0%B4%D1%8D#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F"
+      moreLink:
+        "https://ru.wikipedia.org/wiki/%D0%A3%D0%BB%D0%B0%D0%BD-%D0%A3%D0%B4%D1%8D#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F",
     },
     {
       id: "dodo",
@@ -813,16 +815,18 @@ function showCityPointInfo(id) {
   indicatorWindow.offset.height = rect.height
   let thtml = ""
 
-  if (id == lastCityPoint.id) {    
-    let item = getTimeLineInfo(city.id)  
+  if (id == lastCityPoint.id) {
+    let item = getTimeLineInfo(city.id)
     if (item.date) thtml += `<h4>${item.date}, ${city.name}</h4>`
     //thtml += `<h4>Место: ${city.name}</h4>`
     if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
-    thtml += '<br>'
+    thtml += "<br>"
     if (item.info) thtml += `<p>${item.info}</p>`
     if (item.url) {
       //href="${item.url}" target="${iframeTarget}
-      thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button"  onclick="clickByButton('${item.url}')">Побробнее..</a><a class="button-62" role="button"  onclick="clickByButton('${item.url}')">Продолжить путешествие</a></div>`
+      let st = ""
+      if (city.next) st = `<a class="button-62" role="button"  onclick="goNextPoint('${city.next}')">Продолжить путешествие</a>`
+      thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button"  onclick="clickByButton('${item.url}')">Побробнее..</a>${st}</div>`
     }
 
     // for (item of tmp) {
@@ -838,7 +842,8 @@ function showCityPointInfo(id) {
     thtml += `<h4>${city.name}</h4>`
     //thtml += `<h4>Место: ${city.name}</h4>`
     if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
-    if (city.moreLink) thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button"  href="${city.moreLink}">История города</a></div>`
+    if (city.moreLink)
+      thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button"  href="${city.moreLink}">История города</a></div>`
   }
 
   showIndicator(thtml, rect.x, rect.y, true)
@@ -1010,15 +1015,16 @@ function zoom(newZoomVal = 0) {
 }
 
 function drawLine(sId, fId) {
+  nextCityPoint = fId
   $("#" + sId + "_" + fId).attr("visibility", "visibility")
   getCityPoint(sId).area
   areaList = [...areaList, getCityPoint(sId).area, getCityPoint(fId).area]
   areaHighlight()
 }
 //==============================================================
-function clickByPoint(event) {
-  let m1,
-    city = getCityPoint(event.currentTarget.id)
+
+function cityPointActivate(city) {
+  let m1
   indicatorWindow.isDelay = false
   areaList = [city.area]
   if (city.zoom) m1 = mapMarkerInZoom
@@ -1059,6 +1065,10 @@ function clickByPoint(event) {
   lastCityPoint = city
 }
 
+function clickByPoint(event) {
+  cityPointActivate(getCityPoint(event.currentTarget.id))
+}
+
 function goToByScroll(id) {
   // Remove "link" from the ID
   // Scroll
@@ -1080,6 +1090,9 @@ function clickByButton(url) {
     "linear"
   )
   hideIndicator()
+}
+function goNextPoint(id) {
+  if (cityMarkerActivate) cityPointActivate(getCityPoint(nextCityPoint))
 }
 
 function addMapSVG() {
