@@ -265,9 +265,10 @@ height="620px" viewBox="0 0 1090 620" xml:space="preserve" xmlns:xml="http://www
   <div id="iframe-contanier">
     <iframe src="${iframeURL}" frameborder="0" width="100%" height="800" name="ifrm" id="strotymap"></iframe> 
   </div>
-  `
-;(mapId = "#mapsvg"),
-  (idAarr = {
+  `,
+  mapId = "#mapsvg",
+  mapIdMoreBox = "#map-more-box",
+  idAarr = {
     "RU-MOW": {
       title: "Москва",
     },
@@ -536,7 +537,7 @@ height="620px" viewBox="0 0 1090 620" xml:space="preserve" xmlns:xml="http://www
     "RU-TUL": {
       title: "Тульская область",
     },
-  })
+  }
 
 let mapOptions = {
     events: {
@@ -825,7 +826,8 @@ function showCityPointInfo(id) {
     if (item.url) {
       //href="${item.url}" target="${iframeTarget}
       let st = ""
-      if (city.next) st = `<a class="button-62" role="button"  onclick="goNextPoint('${city.next}')">Продолжить путешествие</a>`
+      if (city.next)
+        st = `<a class="button-62" role="button"  onclick="goNextPoint('${city.next}')">Продолжить путешествие</a>`
       thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button"  onclick="clickByButton('${item.url}')">Побробнее..</a>${st}</div>`
     }
 
@@ -1098,7 +1100,7 @@ function goNextPoint(id) {
 function addMapSVG() {
   $(mapId).append(svgData)
   $(mapId).append(indicator)
-  $(mapId).append(iframeContanier)
+  $(mapIdMoreBox).append(iframeContanier)
 }
 
 $(document).ready(function () {
