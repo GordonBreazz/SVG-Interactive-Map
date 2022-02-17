@@ -259,9 +259,8 @@ height="620px" viewBox="0 0 1090 620" xml:space="preserve" xmlns:xml="http://www
 </svg>`,
   indicator = '<div class="indicator"></div>',
   iframeTarget = "ifrm",
-  iframeURL = "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/28e910ff4506f5a34412ed3448d4ce47/path-of-scientist/published.json"
-  // iframeURL =
-  //   "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json",
+  iframeURL =
+    "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json",
   iframeContanier = `
   <div id="iframe-contanier">
     <iframe src="${iframeURL}" frameborder="0" width="100%" height="800" name="ifrm" id="strotymap"></iframe> 
@@ -633,57 +632,45 @@ let mapOptions = {
     {
       city: "dodo",
       date: "1822 год",
-      info: "Место рождения Доржи Банзарова. Происходил из бурят-казаков. Отец Доржи Банзарова — отставной пятидесятник Ашебагатского казачьего полка Банзар Борхонов.",
+      info: "Место рождения Доржи Банзарова",
       url: iframeURL + "&start_at_slide=2",
     },
     {
       city: "haracai",
-      date: "1830 - 1833 года",
-      info: "Здесь Доржи Банзаров получил начальное образование в Атамано-Николаевском училище. Закончил обучения в 11-летнем возрасте.",
+      date: "1830 - 1833 год",
+      info: "учёба в Атамано-Николаевское училище",
       url: iframeURL + "&start_at_slide=3",
     },
     {
       city: "kyahta",
-      date: "1833 - 1835 года",
-      info: "На протяжении двух лет получал образование в русско-монгольской войсковой школе, в которую его устроил отец. После ее окончания получил направление на учебу в мужскую гимназию в Казани",
+      date: "1833 - 1836 год",
+      info: "Военное училище ",
       url: iframeURL + "&start_at_slide=4",
     },
     {
       city: "kazan",
-      date: "1836 - 1846 года",
-      info: "Студенческие годы.  В начале 1836 года был зачислен в первый класс Казанской гимназии. В июне 1842 года окончил гимназию с золотой медалью и правом поступить в университет. В сентябре 1842 года поступил в Казанский университет на философский факультет, имевший восточный разряд. 5 июня 1846 года окончил Казанский университет.",
+      date: "1836 - 1846 год",
+      info: "Студенческие годы ",
       url: iframeURL + "&start_at_slide=5",
     },
     {
       city: "piter",
-      date: "1847 - 1849 года",
-      info: "Доржи Банзаров вёл научные исследования в Азиатском музее Санкт-Петербурга. Избран членом-корреспондентом Русского археологического общества",
-      url: iframeURL + "&start_at_slide=6",
+      date: "1847 - 1849 год",
+      info: "Научная работа",
+      url: iframeURL + "&start_at_slide=5",
     },
 
     {
       city: "kazan",
-      date: "1848 - 1850 года",
-      info: "Работа в Казани. Учился документооборту в канцелярии Казанской губернии.",
-      url: iframeURL + "&start_at_slide=7",
+      date: "1847 год",
+      info: "Научная работа",
+      url: iframeURL + "&start_at_slide=5",
     },
     {
       city: "irkutsk",
       date: "1850 - 1855 год",
-      info: "В 1850—1855 годах служил в Иркутске чиновником по особым поручениям при генерал-губернаторе Восточной Сибири Николае Николаевиче Муравьеве-Амурском. Жил в Кяхте и Чите. В Верхнеудинске работал по следственным делам.",
-      url: iframeURL + "&start_at_slide=8",
-    },
-    {
-      city: "ulanude",
-      date: "1850 - 1855 год",
-      info: "Командировка по следственным делам",
-      url: iframeURL + "&start_at_slide=10",
-    },
-    {
-      city: "chita",
-      date: "1850 - 1855 год",
-      info: "Доржи Банзаров некоторое время в Чите",
-      url: iframeURL + "&start_at_slide=9",
+      info: "чиновник по особым поручениям",
+      url: iframeURL + "&start_at_slide=5",
     },
   ],
   cityPoints = [
@@ -692,8 +679,8 @@ let mapOptions = {
       name: "г. Улан-Удэ",
       title: "г. Верхнеудинск",
       date: "Настоящее время",
-      cx: 593,
-      cy: 495,
+      cx: 610,
+      cy: 480,
       next: ["dodo"],
       zoom: true,
       area: "RU-BU",
@@ -714,25 +701,21 @@ let mapOptions = {
       id: "haracai",
       name: "улус Харацай",
       title: "станица Атамано-Николаевская",
-      cx: 570,
-      cy: 503,
+      cx: 565,
+      cy: 500,
       next: ["kyahta"],
       zoom: true,
       area: "RU-BU",
-      moreLink:
-        "https://ru.wikipedia.org/wiki/%D0%A5%D0%B0%D1%80%D0%B0%D1%86%D0%B0%D0%B9",
     },
     {
       id: "kyahta",
       name: "г. Кяхта",
       title: "г. Троицкосавск",
       cx: 585,
-      cy: 512,
+      cy: 515,
       next: ["kazan"],
       zoom: false,
       area: "RU-BU",
-      moreLink:
-        "https://ru.wikipedia.org/wiki/%D0%9A%D1%8F%D1%85%D1%82%D0%B0#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F",
     },
     {
       id: "kazan",
@@ -743,8 +726,6 @@ let mapOptions = {
       next: ["piter", "irkutsk"],
       zoom: false,
       area: "RU-TA",
-      moreLink:
-        "https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F",
     },
     {
       id: "piter",
@@ -755,8 +736,6 @@ let mapOptions = {
       next: ["kazan"],
       zoom: false,
       area: "RU-LEN",
-      moreLink:
-        "https://ru.wikipedia.org/wiki/%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F",
     },
 
     {
@@ -765,36 +744,18 @@ let mapOptions = {
       title: null,
       cx: 568,
       cy: 487,
-      next: ["ulanude", "kyahta", "chita"],
-      zoom: true,
+      next: null,
+      zoom: false,
       area: "RU-IRK",
-    },
-    {
-      id: "chita",
-      name: "г. Чита",
-      title: "Читинское селение. В 1851 году Чита получила статус города",
-      cx: 645,
-      cy: 485,
-      next: ["irkutsk"],
-      zoom: true,
-      area: "RU-ZAB",
-      moreLink:
-        "https://ru.wikipedia.org/wiki/%D0%A7%D0%B8%D1%82%D0%B0#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F",
     },
   ]
 
-function showAreaInfo(id) {
-  area = idAarr[id]
-
+function showAreaInfo(area) {
   let txt = `<h4>${area.title}</h4>`
   if (area.info) txt += `<p>${area.info}</p>`
   if (area.url)
     txt += `<div style="width: 100%; text-align: right"><a class="button-62" role="button" href="${area.url}" target="_blank">Подробнее..</a></div>`
-  showIndicator(
-    txt,
-    getCoordinates(id).x + getCoordinates(id).width / 2,
-    getCoordinates(id).y + getCoordinates(id).height / 2
-  )
+  showIndicator(txt, indicatorWindow.position.x, indicatorWindow.position.y)
 }
 
 function showIndicator(htmlText, x, y, isDelay = false) {
@@ -804,8 +765,8 @@ function showIndicator(htmlText, x, y, isDelay = false) {
   $("<div>" + htmlText + "</div>").appendTo(".indicator")
   $(".indicator")
     .css({
-      top: y + 50, //indicatorWindow.offset.y,
-      left: x + 30, //indicatorWindow.offset.x,
+      top: y + indicatorWindow.offset.height, //indicatorWindow.offset.y,
+      left: x + indicatorWindow.offset.width, //indicatorWindow.offset.x,
     })
     .show()
   indicatorWindow.show = true
@@ -846,37 +807,27 @@ function getTimeLineInfo(id) {
   return timeLine.filter((item) => item.city == id)[0]
 }
 
-function getCoordinates(id) {
-  let rect = document.getElementById(id).getBoundingClientRect(),
-    svg3 = document.getElementById("svg2"),
-    rectParent = svg3.getBoundingClientRect()
-  return {
-    x: rect.left - rectParent.left,
-    y: rect.top - rectParent.top,
-    width: rect.width,
-    height: rect.height,
-  }
-}
-
 function showCityPointInfo(id) {
   let city = getCityPoint(id)
   if (!city) return false
+  let elem = document.getElementById(id),
+    rect = elem.getBoundingClientRect()
+  indicatorWindow.offset.width = rect.width
+  indicatorWindow.offset.height = rect.height
   let thtml = ""
 
   if (id == lastCityPoint.id) {
     let item = getTimeLineInfo(city.id)
-
-    if (item.date)
-      thtml += `<h4 style="text-align: center; padding-bottom: 10px; padding-top: 10px;">${item.date}</h4>`
-    thtml += `<h5>Место: ${city.name}</h5>`
+    if (item.date) thtml += `<h4>${item.date}, ${city.name}</h4>`
+    //thtml += `<h4>Место: ${city.name}</h4>`
     if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
-    // thtml += "<br>"
+    thtml += "<br>"
     if (item.info) thtml += `<p>${item.info}</p>`
     if (item.url) {
       //href="${item.url}" target="${iframeTarget}
       let st = ""
       if (city.next)
-        st = `<a class="button-63" role="button"  onclick="goNextPoint('${city.next}')">Продолжить путешествие</a>`
+        st = `<a class="button-62" role="button"  onclick="goNextPoint('${city.next}')">Продолжить путешествие</a>`
       thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button"  onclick="clickByButton('${item.url}')">Побробнее..</a>${st}</div>`
     }
 
@@ -897,10 +848,7 @@ function showCityPointInfo(id) {
       thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button"  href="${city.moreLink}">История города</a></div>`
   }
 
-  let svg3 = document.getElementById("svg2")
-  let rectParent = svg3.getBoundingClientRect()
-
-  showIndicator(thtml, getCoordinates(id).x, getCoordinates(id).y, true)
+  showIndicator(thtml, rect.x, rect.y, true)
 }
 
 function cityMarkerActivate(id, m) {
@@ -962,16 +910,10 @@ function initMap() {
     $(this).attr("name", name)
   })
 
-  // $("path").mousemove(function (e) {
-
-  //   let rect = e.target.getBoundingClientRect();
-  //   let x = e.clientX - rect.left; //x position within the element.
-  //   let y = e.clientY - rect.top;  //y position within the element.
-
-  //   indicatorWindow.position.x = e.clientX
-  //   indicatorWindow.position.y = e.clientY
-
-  // })
+  $("path").mousemove(function (e) {
+    indicatorWindow.position.x = e.pageX
+    indicatorWindow.position.y = e.pageY
+  })
 
   $("path").hover(
     function (e) {
@@ -990,7 +932,7 @@ function initMap() {
         lastAreaId = id
         if (isAutoShowIndicator) {
           countdown = setTimeout(function () {
-            showAreaInfo(id)
+            showAreaInfo(idAarr[id])
           }, 1000)
         }
       }
@@ -1037,16 +979,13 @@ function initMap() {
   $(".circle5").click(clickByPoint)
 
   // $("#svg2").mousemove(function (e) {
-  //   // let position = $("#svg2").position();
-  //   // console.log(position)
-  //   indicatorWindow.position.x = 100 //e.pageX
-  //   indicatorWindow.position.y = 100 //e.pageY
-  //   //console.log(e)
+  //   // hideIndicator()
+  //   console.log("///")
   // })
 
   $("#svg2").click(function () {
     if (indicatorWindow.show) hideIndicator()
-    else showAreaInfo(lastAreaId)
+    else showAreaInfo(idAarr[lastAreaId])
   })
 
   $("#svg2").dblclick(function () {
@@ -1087,10 +1026,6 @@ function drawLine(sId, fId) {
 //==============================================================
 
 function cityPointActivate(city) {
-  if (!city) {
-    alert("ok")
-    return false
-  }
   let m1
   indicatorWindow.isDelay = false
   areaList = [city.area]
@@ -1159,8 +1094,7 @@ function clickByButton(url) {
   hideIndicator()
 }
 function goNextPoint(id) {
-  if (id == "start") cityPointActivate(getCityPoint("ulanude"))
-  else if (cityMarkerActivate) cityPointActivate(getCityPoint(nextCityPoint))
+  if (cityMarkerActivate) cityPointActivate(getCityPoint(nextCityPoint))
 }
 
 function addMapSVG() {
@@ -1172,12 +1106,4 @@ function addMapSVG() {
 $(document).ready(function () {
   addMapSVG()
   initMap()
-  setTimeout(function () {
-    showIndicator(
-      `<h4>Пройти по следам Доржи Банзарова</h4><div style="width: 100%; text-align: right"><a class="button-63" onclick="goNextPoint('start')" role="button">Начать путешествие</a></div>`,
-      100,
-      100,
-      true
-    )
-  }, 300)
 })
