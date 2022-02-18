@@ -569,7 +569,7 @@ let mapOptions = {
   svgPanZoom,
   currentZoom = 0,
   zoomFactor = 4,
-  isAutoShowIndicator = true,
+  isAutoShowIndicator = false,
   localCursor,
   currentCityId = null,
   lastAreaId = null,
