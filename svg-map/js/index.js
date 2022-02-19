@@ -259,17 +259,18 @@ height="620px" viewBox="0 0 1090 620" xml:space="preserve" xmlns:xml="http://www
 </svg>`,
   indicator = '<div class="indicator"></div>',
   iframeTarget = "ifrm",
-  iframeURL = "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/28e910ff4506f5a34412ed3448d4ce47/path-of-scientist/published.json"
-  // iframeURL =
-  //   "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json",
-  iframeContanier = `
+  iframeURL =
+    "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/28e910ff4506f5a34412ed3448d4ce47/path-of-scientist/published.json"
+// iframeURL =
+//   "https://cdn.knightlab.com/libs/storymapjs/latest/embed/?url=//uploads.knightlab.com/storymapjs/c6722dcf1316d3ff987d2901d84685d2/gordon/published.json",
+;(iframeContanier = `
   <div id="iframe-contanier">
     <iframe src="${iframeURL}" frameborder="0" width="100%" height="800" name="ifrm" id="strotymap"></iframe> 
   </div>
-  `,
-  mapId = "#mapsvg",
-  mapIdMoreBox = "#map-more-box",
-  idAarr = {
+  `),
+  (mapId = "#mapsvg"),
+  (mapIdMoreBox = "#map-more-box"),
+  (idAarr = {
     "RU-MOW": {
       title: "Москва",
     },
@@ -538,7 +539,7 @@ height="620px" viewBox="0 0 1090 620" xml:space="preserve" xmlns:xml="http://www
     "RU-TUL": {
       title: "Тульская область",
     },
-  }
+  })
 
 let mapOptions = {
     events: {
@@ -625,65 +626,85 @@ let mapOptions = {
   },
   timeLine = [
     {
+      name: "ulanude1",
       city: "ulanude",
       date: "Настоящее время",
       info: "Улан-Удэ столица Республики Бурятия особо чтит первого бурятского учёного. В городе Доржи Базарову установлены памятники, его наследие и труды бережно сохранены для будущих поколений.  Именно отсюда мы начнём путешествие по жизненному пути нашего  земляка",
       url: iframeURL + "&start_at_slide=1",
+      zoom: true,
     },
     {
+      name: "dodo1",
       city: "dodo",
       date: "1822 год",
       info: "Место рождения Доржи Банзарова. Происходил из бурят-казаков. Отец Доржи Банзарова — отставной пятидесятник Ашебагатского казачьего полка Банзар Борхонов.",
       url: iframeURL + "&start_at_slide=2",
+      zoom: true,
     },
     {
+      name: "haracai1",
       city: "haracai",
       date: "1830 - 1833 года",
       info: "Здесь Доржи Банзаров получил начальное образование в Атамано-Николаевском училище. Закончил обучения в 11-летнем возрасте.",
       url: iframeURL + "&start_at_slide=3",
+      zoom: true,
     },
     {
+      name: "kyahta1",
       city: "kyahta",
       date: "1833 - 1835 года",
       info: "На протяжении двух лет получал образование в русско-монгольской войсковой школе, в которую его устроил отец. После ее окончания получил направление на учебу в мужскую гимназию в Казани",
       url: iframeURL + "&start_at_slide=4",
+      zoom: false,
     },
     {
+      name: "kazan1",
       city: "kazan",
       date: "1836 - 1846 года",
       info: "Студенческие годы.  В начале 1836 года был зачислен в первый класс Казанской гимназии. В июне 1842 года окончил гимназию с золотой медалью и правом поступить в университет. В сентябре 1842 года поступил в Казанский университет на философский факультет, имевший восточный разряд. 5 июня 1846 года окончил Казанский университет.",
       url: iframeURL + "&start_at_slide=5",
+      zoom: false,
     },
     {
+      name: "piter1",
       city: "piter",
       date: "1847 - 1849 года",
       info: "Доржи Банзаров вёл научные исследования в Азиатском музее Санкт-Петербурга. Избран членом-корреспондентом Русского археологического общества",
       url: iframeURL + "&start_at_slide=6",
+      zoom: false,
     },
 
     {
+      name: "kazan2",
       city: "kazan",
       date: "1848 - 1850 года",
       info: "Работа в Казани. Учился документооборту в канцелярии Казанской губернии.",
       url: iframeURL + "&start_at_slide=7",
+      zoom: false,
     },
     {
+      name: "irkutsk1",
       city: "irkutsk",
       date: "1850 - 1855 год",
       info: "В 1850—1855 годах служил в Иркутске чиновником по особым поручениям при генерал-губернаторе Восточной Сибири Николае Николаевиче Муравьеве-Амурском. Жил в Кяхте и Чите. В Верхнеудинске работал по следственным делам.",
       url: iframeURL + "&start_at_slide=8",
+      zoom: true,
     },
     {
+      name: "ulanude2",
       city: "ulanude",
       date: "1850 - 1855 год",
       info: "Командировка по следственным делам",
       url: iframeURL + "&start_at_slide=10",
+      zoom: true,
     },
     {
+      name: "chita1",
       city: "chita",
       date: "1850 - 1855 год",
       info: "Доржи Банзаров некоторое время в Чите",
       url: iframeURL + "&start_at_slide=9",
+      zoom: true,
     },
   ],
   cityPoints = [
@@ -694,7 +715,8 @@ let mapOptions = {
       date: "Настоящее время",
       cx: 593,
       cy: 495,
-      next: ["dodo"],
+      next: ["dodo", "kyahta"],
+      pred: ["", "chita"],
       zoom: true,
       area: "RU-BU",
       moreLink:
@@ -707,8 +729,11 @@ let mapOptions = {
       cx: 575,
       cy: 505,
       next: ["haracai"],
+      pred: null,
       zoom: true,
       area: "RU-BU",
+      moreLink:
+        "https://ru.wikipedia.org/wiki/%D0%94%D0%BE%D0%B4%D0%BE-%D0%98%D1%87%D1%91%D1%82%D1%83%D0%B9",
     },
     {
       id: "haracai",
@@ -717,6 +742,7 @@ let mapOptions = {
       cx: 570,
       cy: 503,
       next: ["kyahta"],
+      pred: null,
       zoom: true,
       area: "RU-BU",
       moreLink:
@@ -728,7 +754,8 @@ let mapOptions = {
       title: "г. Троицкосавск",
       cx: 585,
       cy: 512,
-      next: ["kazan"],
+      next: ["kazan", "irkutsk"],
+      pred: null,
       zoom: false,
       area: "RU-BU",
       moreLink:
@@ -741,6 +768,7 @@ let mapOptions = {
       cx: 200,
       cy: 330,
       next: ["piter", "irkutsk"],
+      pred: ["kyahta", "piter"],
       zoom: false,
       area: "RU-TA",
       moreLink:
@@ -766,8 +794,11 @@ let mapOptions = {
       cx: 568,
       cy: 487,
       next: ["ulanude", "kyahta", "chita"],
+      pred: null,
       zoom: true,
       area: "RU-IRK",
+      moreLink:
+        "https://ru.wikipedia.org/wiki/%D0%98%D1%80%D0%BA%D1%83%D1%82%D1%81%D0%BA#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F",
     },
     {
       id: "chita",
@@ -775,7 +806,8 @@ let mapOptions = {
       title: "Читинское селение. В 1851 году Чита получила статус города",
       cx: 645,
       cy: 485,
-      next: ["irkutsk"],
+      next: ["ulanude"],
+      pred: null,
       zoom: true,
       area: "RU-ZAB",
       moreLink:
