@@ -624,6 +624,7 @@ let mapOptions = {
       height: 0,
     },
   },
+  lastTimelineId = -1,
   timeLine = [
     {
       name: "ulanude1",
@@ -677,7 +678,7 @@ let mapOptions = {
     {
       name: "kazan2",
       city: "kazan",
-      date: "1848 - 1850 года",
+      date: "|||| 1848 - 1850 года",
       info: "Работа в Казани. Учился документооборту в канцелярии Казанской губернии.",
       url: iframeURL + "&start_at_slide=7",
       zoom: false,
@@ -707,8 +708,8 @@ let mapOptions = {
       zoom: true,
     },
   ],
-  cityPoints = [
-    {
+  cityPointsEx = {
+    ulanude: {
       id: "ulanude",
       name: "г. Улан-Удэ",
       title: "г. Верхнеудинск",
@@ -716,65 +717,60 @@ let mapOptions = {
       cx: 593,
       cy: 495,
       next: ["dodo", "kyahta"],
-      pred: ["", "chita"],
       zoom: true,
       area: "RU-BU",
       moreLink:
         "https://ru.wikipedia.org/wiki/%D0%A3%D0%BB%D0%B0%D0%BD-%D0%A3%D0%B4%D1%8D#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F",
     },
-    {
+    dodo: {
       id: "dodo",
       name: "улус Додо-Ичётуй",
       title: "улус Кутетуевский",
       cx: 575,
       cy: 505,
       next: ["haracai"],
-      pred: null,
       zoom: true,
       area: "RU-BU",
       moreLink:
         "https://ru.wikipedia.org/wiki/%D0%94%D0%BE%D0%B4%D0%BE-%D0%98%D1%87%D1%91%D1%82%D1%83%D0%B9",
     },
-    {
+    haracai: {
       id: "haracai",
       name: "улус Харацай",
       title: "станица Атамано-Николаевская",
       cx: 570,
       cy: 503,
       next: ["kyahta"],
-      pred: null,
       zoom: true,
       area: "RU-BU",
       moreLink:
         "https://ru.wikipedia.org/wiki/%D0%A5%D0%B0%D1%80%D0%B0%D1%86%D0%B0%D0%B9",
     },
-    {
+    kyahta: {
       id: "kyahta",
       name: "г. Кяхта",
       title: "г. Троицкосавск",
       cx: 585,
       cy: 512,
       next: ["kazan", "irkutsk"],
-      pred: null,
       zoom: false,
       area: "RU-BU",
       moreLink:
         "https://ru.wikipedia.org/wiki/%D0%9A%D1%8F%D1%85%D1%82%D0%B0#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F",
     },
-    {
+    kazan: {
       id: "kazan",
       name: "г. Казань",
       title: null,
       cx: 200,
       cy: 330,
       next: ["piter", "irkutsk"],
-      pred: ["kyahta", "piter"],
       zoom: false,
       area: "RU-TA",
       moreLink:
         "https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F",
     },
-    {
+    piter: {
       id: "piter",
       name: "г. Санкт-Петербург",
       title: null,
@@ -786,38 +782,35 @@ let mapOptions = {
       moreLink:
         "https://ru.wikipedia.org/wiki/%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F",
     },
-
-    {
+    irkutsk: {
       id: "irkutsk",
       name: "г. Иркутск",
       title: null,
       cx: 568,
       cy: 487,
       next: ["ulanude", "kyahta", "chita"],
-      pred: null,
       zoom: true,
       area: "RU-IRK",
       moreLink:
         "https://ru.wikipedia.org/wiki/%D0%98%D1%80%D0%BA%D1%83%D1%82%D1%81%D0%BA#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F",
     },
-    {
+    chita: {
       id: "chita",
       name: "г. Чита",
       title: "Читинское селение. В 1851 году Чита получила статус города",
       cx: 645,
       cy: 485,
       next: ["ulanude"],
-      pred: null,
       zoom: true,
       area: "RU-ZAB",
       moreLink:
         "https://ru.wikipedia.org/wiki/%D0%A7%D0%B8%D1%82%D0%B0#%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F",
     },
-  ]
+  }
 
 function showAreaInfo(id) {
+  if (!id) return false
   area = idAarr[id]
-
   let txt = `<h4>${area.title}</h4>`
   if (area.info) txt += `<p>${area.info}</p>`
   if (area.url)
@@ -852,13 +845,12 @@ function hideIndicator() {
 }
 
 function getCityPoint(id) {
-  return cityPoints.find(function (elem) {
-    if (elem.id == id) return elem
-  })
+  return cityPointsEx[id]
 }
 
 function setAriasList(id) {
   let city = getCityPoint(id)
+  if (!city) return false
   areaList = [city.area]
   for (let item of city.next) {
     let nexCity = getCityPoint(item)
@@ -873,9 +865,18 @@ function areaHighlight(color = mapBacklightColor) {
 }
 
 function getTimeLineInfo(id) {
-  if (id == "kazan" && lastCityPoint.id == "piter")
-    return timeLine.filter((item) => item.city == id)[1]
-  return timeLine.filter((item) => item.city == id)[0]
+  console.log("getTimeLineInfo:", id)
+  if (lastTimelineId)
+    for (let i = lastTimelineId; i < timeLine.length; i++)
+      if (id == timeLine[i].city) {
+        lastTimelineId = i
+        return timeLine[i]
+      }
+  for (let i = 0; i < timeLine.length; i++)
+    if (id == timeLine[i].city) {
+      lastTimelineId = i
+      return timeLine[i]
+    }
 }
 
 function getCoordinates(id) {
@@ -897,40 +898,25 @@ function showCityPointInfo(id) {
 
   if (id == lastCityPoint.id) {
     let item = getTimeLineInfo(city.id)
-
+    //console.log("item", item)
+    //return false
     if (item.date)
       thtml += `<h4 style="text-align: center; padding-bottom: 10px; padding-top: 10px;">${item.date}</h4>`
     thtml += `<h5>Место: ${city.name}</h5>`
     if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
-    // thtml += "<br>"
     if (item.info) thtml += `<p>${item.info}</p>`
     if (item.url) {
-      //href="${item.url}" target="${iframeTarget}
       let st = ""
       if (city.next)
         st = `<a class="button-63" role="button"  onclick="goNextPoint('${city.next}')">Продолжить путешествие</a>`
       thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button"  onclick="clickByButton('${item.url}')">Побробнее..</a>${st}</div>`
     }
-
-    // for (item of tmp) {
-    //   if (c) thtml += "<br><hr><br>"
-    //   else thtml += "<br>"
-    //   if (item.date) thtml += `<h4>${item.date}</h4>`
-    //   if (item.info) thtml += `<p>${item.info}</p>`
-    //   if (item.url)
-    //     thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button" href="${item.url}" target="${iframeTarget}">Подробнее..</a></div>`
-    //   c = true
-    // }
   } else {
     thtml += `<h4>${city.name}</h4>`
-    //thtml += `<h4>Место: ${city.name}</h4>`
     if (city.title) thtml += `<p>Название в XIX веке: ${city.title}</p>`
     if (city.moreLink)
       thtml += `<div style="width: 100%; text-align: right"><a class="button-62" role="button"  href="${city.moreLink}">История города</a></div>`
   }
-
-  let svg3 = document.getElementById("svg2")
-  let rectParent = svg3.getBoundingClientRect()
 
   showIndicator(thtml, getCoordinates(id).x, getCoordinates(id).y, true)
 }
@@ -1037,7 +1023,7 @@ function initMap() {
       areaHighlight()
     }
   )
-  $.each(cityPoints, function (index, val) {
+  $.each(cityPointsEx, function (index, val) {
     nextList = val.next
     let svg = document.getElementById("svg2")
 
@@ -1057,7 +1043,7 @@ function initMap() {
   })
 
   // Insert Cities
-  $.each(cityPoints, function (index, val) {
+  $.each(cityPointsEx, function (index, val) {
     let svg = document.getElementById("svg2")
     svg.insertAdjacentHTML(
       "beforeend",
@@ -1109,7 +1095,7 @@ function zoom(newZoomVal = 0) {
   return false
 }
 
-function drawLine(sId, fId) {
+function drawOneLine(sId, fId) {
   nextCityPoint = fId
   $("#" + sId + "_" + fId).attr("visibility", "visibility")
   getCityPoint(sId).area
@@ -1118,9 +1104,38 @@ function drawLine(sId, fId) {
 }
 //==============================================================
 
+function getTimeLineCity(id) {
+  if (id) return timeLine[id].city
+  return null
+}
+
+function getNextTimeLinePoint() {
+  if (!lastTimelineId) return ""
+  console.log("qqqqq", lastTimelineId)
+  if (lastTimelineId + 1 < timeLine.length)
+    return getTimeLineCity(lastTimelineId + 1)
+  return ""
+}
+
+function drawLines(city) {
+  console.log('city',city)
+  if (city.next) {
+
+   console.log('+----+',city.id, lastTimelineId + 1)    
+
+    if (city.next.includes(getNextTimeLinePoint()))
+      drawOneLine(currentCityId, getNextTimeLinePoint())
+    // if (city.id == "kazan" && lastCityPoint.id == "kyahta")
+    //   drawOneLine(currentCityId, city.next[0])
+    // else if (city.id == "kazan" && lastCityPoint.id == "piter")
+    //   drawOneLine(currentCityId, city.next[1])
+    //else for (let item of city.next) drawOneLine(currentCityId, item)
+  }
+}
+
 function cityPointActivate(city) {
   if (!city) {
-    alert("ok")
+    alert("Не найдена точка на карте")
     return false
   }
   let m1
@@ -1134,18 +1149,14 @@ function cityPointActivate(city) {
     $("#" + currentCityId).removeClass(mapMarkerInZoom.activeClss)
   }
   currentCityId = city.id
+  
   $("#" + currentCityId).attr("stroke", mapMarkerColor.active)
   $("#" + currentCityId).addClass(m1.activeClss)
 
   //draw lines between points
   $(".path5").attr("visibility", "hidden")
-  if (city.next) {
-    if (city.id == "kazan" && lastCityPoint.id == "kyahta")
-      drawLine(currentCityId, city.next[0])
-    else if (city.id == "kazan" && lastCityPoint.id == "piter")
-      drawLine(currentCityId, city.next[1])
-    else for (let item of city.next) drawLine(currentCityId, item)
-  }
+
+  drawLines(city)
 
   if (city.zoom && currentZoom == 0) {
     zoom(zoomFactor)
