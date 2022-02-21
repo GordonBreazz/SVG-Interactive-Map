@@ -866,7 +866,7 @@ function areaHighlight(color = mapBacklightColor) {
 
 function getTimeLineInfo(id) {
   console.log("getTimeLineInfo:", id)
-  if (lastTimelineId)
+  if (lastTimelineId > -1)
     for (let i = lastTimelineId; i < timeLine.length; i++)
       if (id == timeLine[i].city) {
         lastTimelineId = i
@@ -1104,14 +1104,14 @@ function drawOneLine(sId, fId) {
 }
 //==============================================================
 
-function getTimeLineCity(id) {
-  if (id) return timeLine[id].city
-  return null
-}
+// function getTimeLineCity(id) {
+//   if (id) return timeLine[id].city
+//   return null
+// }
 
 function getNextTimeLinePoint() {
   if (!lastTimelineId) return ""
-  console.log("qqqqq", lastTimelineId)
+  console.log("qqqqq", lastTimelineId, timeLine[lastTimelineId])
   if (lastTimelineId + 1 < timeLine.length)
     return getTimeLineCity(lastTimelineId + 1)
   return ""
@@ -1122,14 +1122,15 @@ function drawLines(city) {
   if (city.next) {
 
    console.log('+----+',city.id, lastTimelineId + 1)    
-
-    if (city.next.includes(getNextTimeLinePoint()))
+   if (city.id == getNextTimeLinePoint())   
+    //if (city.next.includes(getNextTimeLinePoint()))
       drawOneLine(currentCityId, getNextTimeLinePoint())
     // if (city.id == "kazan" && lastCityPoint.id == "kyahta")
     //   drawOneLine(currentCityId, city.next[0])
     // else if (city.id == "kazan" && lastCityPoint.id == "piter")
     //   drawOneLine(currentCityId, city.next[1])
     //else for (let item of city.next) drawOneLine(currentCityId, item)
+    else drawOneLine(currentCityId, city.next[0])
   }
 }
 
