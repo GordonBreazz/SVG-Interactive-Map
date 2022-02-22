@@ -1095,13 +1095,13 @@ function zoom(newZoomVal = 0) {
   return false
 }
 
-function drawOneLine(sId, fId) {
-  nextCityPoint = fId
-  $("#" + sId + "_" + fId).attr("visibility", "visibility")
-  getCityPoint(sId).area
-  areaList = [...areaList, getCityPoint(sId).area, getCityPoint(fId).area]
-  areaHighlight()
-}
+// function drawOneLine(sId, fId) {
+//   nextCityPoint = fId
+//   $("#" + sId + "_" + fId).attr("visibility", "visibility")
+//   getCityPoint(sId).area
+//   areaList = [...areaList, getCityPoint(sId).area, getCityPoint(fId).area]
+//   areaHighlight()
+// }
 //==============================================================
 
 // function getTimeLineCity(id) {
