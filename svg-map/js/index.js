@@ -1095,6 +1095,7 @@ function zoom(newZoomVal = 0) {
   return false
 }
 
+
 function drawOneLine(sId, fId) {
   nextCityPoint = fId
   $("#" + sId + "_" + fId).attr("visibility", "visibility")
