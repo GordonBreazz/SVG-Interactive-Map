@@ -1074,6 +1074,20 @@ function initMap() {
   $("path").css("fill", mapBackgroundColor)
 }
 
+/**
+ * The zoom function is called when the user clicks on the zoom in or zoom out buttons. 
+ * It takes a newZoomVal as an argument. If the newZoomVal is less than 0, it returns false. 
+ * If the newZoomVal is greater than the currentZoom, it sets the currentZoom to the newZoomVal and
+ * calls the svgPanZoom.zoomIn function. 
+ * It then calls the pointHighlighter function and the changeMapMarkers function. 
+ * If the newZoomVal is less than the currentZoom, it calls the svgPanZoom.zoomOut function and sets
+ * the currentZoom to the newZoomVal. 
+ * It then calls the pointHighlighter function and the changeMapMarkers function. 
+ * It returns true if the newZoomVal is greater than or equal to 0. 
+ * It returns false if the newZoom
+ * @param [newZoomVal=0] - The new zoom value.
+ * @returns a boolean value.
+ */
 function zoom(newZoomVal = 0) {
   if (newZoomVal < 0) return false
   if (newZoomVal > currentZoom) {
